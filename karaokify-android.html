@@ -6,66 +6,70 @@
   <title>KaraOkify</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
       margin: 0;
-      padding: 0;
-      text-align: center;
+      font-family: Arial, sans-serif;
       background-color: #111;
       color: #fff;
-    }
-    header, section, footer {
-      padding: 40px 20px;
+      text-align: center;
     }
     header {
-      background: #ff4081;
+      background: url('your-app-background.jpg') no-repeat center center;
+      background-size: cover;
+      padding: 80px 20px;
+      color: #fff;
+    }
+    header h1 {
+      font-size: 3em;
+      margin: 0;
+      text-shadow: 2px 2px 6px rgba(0,0,0,0.7);
     }
     section {
-      background: #222;
-      margin: 20px 0;
+      padding: 40px 20px;
     }
-    footer {
-      background: #333;
+    section h2 {
+      margin-bottom: 20px;
+      font-size: 2em;
+      color: #ff4081;
     }
-    img {
+    img.screenshot {
       max-width: 80%;
-      height: auto;
-      border: 2px solid #ff4081;
+      border: 4px solid #ff4081;
       border-radius: 10px;
     }
-    a {
+    footer {
+      background-color: #222;
+      padding: 20px;
+    }
+    footer a {
       color: #ff4081;
       text-decoration: none;
-      font-weight: bold;
-    }
-    a:hover {
-      text-decoration: underline;
     }
   </style>
 </head>
 <body>
 
-  <!-- About Section -->
+  <!-- Top: About -->
   <header>
     <h1>About KaraOkify</h1>
     <p>KaraOkify brings the fun of karaoke to your mobile device with vibrant visuals and smooth performance.</p>
   </header>
 
-  <!-- Screenshot Section -->
-  <section id="screenshot">
+  <!-- Middle: Screenshot -->
+  <section>
     <h2>App Screenshot</h2>
-    <img src="images/screenshot1.png" alt="KaraOkify Screenshot">
+    <img src="screenshot.png" alt="KaraOkify Screenshot" class="screenshot">
   </section>
 
-  <!-- Tutorial Section -->
-  <section id="tutorial">
-    <h2>Video Tutorial</h2>
+  <!-- Third: Tutorial -->
+  <section>
+    <h2>Tutorial</h2>
     <p>Watch how to use KaraOkify:</p>
-    <a href="https://www.youtube.com/" target="_blank">▶ KaraOkify intro</a>
+    <a href="https://www.youtube.com/your-tutorial-link" target="_blank">▶ KaraOkify Intro</a>
   </section>
 
-  <!-- Privacy Policy -->
+  <!-- Bottom: Privacy Policy -->
   <footer>
-    <p><a href="karaokify_android_policy.html">Privacy Policy</a></p>
+    <a href="privacy.html">Privacy Policy</a>
   </footer>
 
 </body>
