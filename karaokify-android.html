@@ -1,76 +1,114 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>KaraOkify</title>
   <style>
-    body {
-      margin: 0;
+    :root{
+      --accent:#ff4081;
+      --overlay-rgba: rgba(0,0,0,0.45);
+    }
+
+    *{box-sizing:border-box;margin:0;padding:0}
+
+    html,body{height:100%}
+
+    /* Full page background */
+    body{
       font-family: Arial, sans-serif;
-      background-color: #111;
-      color: #fff;
-      text-align: center;
+      color:#fff;
+      background:
+        linear-gradient(var(--overlay-rgba), var(--overlay-rgba)),
+        url('images/karaokify_full.jpg') no-repeat center center / cover;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      min-height:100vh;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:flex-start;
+      text-align:center;
     }
-    header {
-      background: url('images/karaokify_abg.jpg') no-repeat center center;
-      background-size: cover;
-      padding: 80px 20px;
-      color: #fff;
+
+    /* Optional fixed background effect, respects reduced motion */
+    @media (prefers-reduced-motion: no-preference){
+      body{
+        background-attachment: fixed;
+      }
     }
-    header h1 {
-      font-size: 3em;
-      margin: 0;
-      text-shadow: 2px 2px 6px rgba(0,0,0,0.7);
+
+    header{
+      width:100%;
+      max-width:1200px;
+      padding:48px 20px;
     }
-    section {
-      padding: 40px 20px;
+
+    header h1{
+      font-size:clamp(1.6rem,4vw,3rem);
+      margin-bottom:8px;
+      text-shadow:2px 2px 8px rgba(0,0,0,0.7);
     }
-    section h2 {
-      margin-bottom: 20px;
-      font-size: 2em;
-      color: #ff4081;
+
+    header p{
+      font-size:clamp(0.95rem,1.6vw,1.15rem);
+      opacity:0.95;
+      margin:0 auto;
+      max-width:900px;
     }
-    img.screenshot {
-      max-width: 80%;
-      border: 4px solid #ff4081;
-      border-radius: 10px;
+
+    main{width:100%;max-width:1100px;padding:36px 20px}
+
+    section{margin-bottom:36px}
+
+    section h2{color:var(--accent);font-size:1.6rem;margin-bottom:16px}
+
+    img.screenshot{
+      max-width:80%;
+      border:4px solid var(--accent);
+      border-radius:10px;
+      display:block;
+      margin:0 auto;
     }
-    footer {
-      background-color: #222;
-      padding: 20px;
+
+    footer{
+      width:100%;
+      background:rgba(0,0,0,0.45);
+      padding:18px 20px;
+      margin-top:auto;
     }
-    footer a {
-      color: #ff4081;
-      text-decoration: none;
+
+    footer a{color:var(--accent);text-decoration:none}
+
+    /* Mobile tweaks */
+    @media (max-width:600px){
+      header{padding:28px 12px}
+      main{padding:24px 12px}
+      img.screenshot{max-width:95%}
     }
   </style>
 </head>
 <body>
-
-  <!-- Top: About -->
   <header>
     <h1>About KaraOkify</h1>
     <p>KaraOkify brings the fun of karaoke to your mobile device with vibrant visuals and smooth performance.</p>
   </header>
 
-  <!-- Middle: Screenshot -->
-  <section>
-    <h2>App Screenshot</h2>
-    <img src="screenshot.png" alt="KaraOkify Screenshot" class="screenshot">
-  </section>
+  <main>
+    <section>
+      <h2>App Screenshot</h2>
+      <img src="screenshot.png" alt="KaraOkify Screenshot" class="screenshot">
+    </section>
 
-  <!-- Third: Tutorial -->
-  <section>
-    <h2>Tutorial</h2>
-    <p>Watch how to use KaraOkify:</p>
-    <a href="https://www.youtube.com/your-tutorial-link" target="_blank">▶ KaraOkify Intro</a>
-  </section>
+    <section>
+      <h2>Tutorial</h2>
+      <p>Watch how to use KaraOkify:</p>
+      <a href="https://www.youtube.com/your-tutorial-link" target="_blank" rel="noopener noreferrer">▶ KaraOkify Intro</a>
+    </section>
+  </main>
 
-  <!-- Bottom: Privacy Policy -->
   <footer>
     <a href="privacy.html">Privacy Policy</a>
   </footer>
-
 </body>
 </html>
