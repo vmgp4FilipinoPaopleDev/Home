@@ -1,115 +1,124 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>KaraOkify</title>
   <style>
-    :root{
-      --accent:#ff4081;
-      --overlay-rgba: rgba(0,0,0,0.45);
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: linear-gradient(135deg, #6a1b9a, #f06292, #ff9800);
+      color: #fff;
+      text-align: center;
     }
 
-    *{box-sizing:border-box;margin:0;padding:0}
-
-    html,body{height:100%}
-
-    /* Full page background */
-    body{
-      font-family: Arial, sans-serif;
-      color:#fff;
-      background:
-        linear-gradient(var(--overlay-rgba), var(--overlay-rgba)),
-        url('image/karaokify_full.jpg') no-repeat center center / cover;
-      -webkit-font-smoothing:antialiased;
-      -moz-osx-font-smoothing:grayscale;
-      min-height:100vh;
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-      justify-content:flex-start;
-      text-align:center;
+    header {
+      padding: 30px 20px;
+      background: rgba(0,0,0,0.4);
+      backdrop-filter: blur(10px);
     }
 
-    /* Optional fixed background effect, respects reduced motion */
-    @media (prefers-reduced-motion: no-preference){
-      body{
-        background-attachment: fixed;
-      }
+    h1 {
+      font-size: 2.5rem;
+      margin: 0;
+      color: #ffd700;
+      text-shadow: 2px 2px 6px rgba(0,0,0,0.6);
     }
 
-    header{
-      width:100%;
-      max-width:1200px;
-      padding:48px 20px;
+    nav {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 15px;
+      margin: 30px 0;
     }
 
-    header h1{
-      font-size:clamp(1.6rem,4vw,3rem);
-      margin-bottom:8px;
-      text-shadow:2px 2px 8px rgba(0,0,0,0.7);
+    nav button {
+      padding: 14px 22px;
+      border: none;
+      border-radius: 20px;
+      background: rgba(255,255,255,0.2);
+      color: #fff;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: transform 0.2s, background 0.3s;
     }
 
-    header p{
-      font-size:clamp(0.95rem,1.6vw,1.15rem);
-      opacity:0.95;
-      margin:0 auto;
-      max-width:900px;
+    nav button:hover {
+      background: rgba(255,255,255,0.4);
+      transform: scale(1.05);
     }
 
-    main{width:100%;max-width:1100px;padding:36px 20px}
-
-    section{margin-bottom:36px}
-
-    section h2{color:var(--accent);font-size:1.6rem;margin-bottom:16px}
-
-    img.screenshot{
-      max-width:80%;
-      border:4px solid var(--accent);
-      border-radius:10px;
-      display:block;
-      margin:0 auto;
+    .highlight {
+      background: linear-gradient(90deg, #ffd700, #ffeb3b);
+      color: #000;
+      font-weight: bold;
     }
 
-    footer{
-      width:100%;
-      background:rgba(0,0,0,0.45);
-      padding:18px 20px;
-      margin-top:auto;
+    .scoreboard {
+      margin: 20px auto;
+      max-width: 500px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 15px;
+      padding: 20px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.4);
     }
 
-    footer a{color:var(--accent);text-decoration:none}
+    .start-btn {
+      margin: 30px auto;
+      display: inline-block;
+      padding: 18px 40px;
+      border-radius: 40px;
+      background: linear-gradient(135deg, #e91e63, #9c27b0);
+      color: #fff;
+      font-size: 1.4rem;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.5);
+      transition: transform 0.2s;
+    }
 
-    /* Mobile tweaks */
-    @media (max-width:600px){
-      header{padding:28px 12px}
-      main{padding:24px 12px}
-      img.screenshot{max-width:95%}
+    .start-btn:hover {
+      transform: scale(1.08);
+    }
+
+    /* Responsive tweaks */
+    @media (max-width: 768px) {
+      h1 { font-size: 2rem; }
+      nav button { font-size: 0.9rem; padding: 10px 15px; }
+      .start-btn { font-size: 1.2rem; padding: 14px 30px; }
+    }
+
+    @media (min-width: 1200px) {
+      h1 { font-size: 3rem; }
+      nav button { font-size: 1.2rem; }
+      .start-btn { font-size: 1.6rem; }
     }
   </style>
 </head>
 <body>
   <header>
-    <h1>About KaraOkify</h1>
-    <p>KaraOkify brings the fun of karaoke to your mobile device with vibrant visuals and smooth performance.</p>
+    <h1>🎶 KaraOkify</h1>
+    <p>Sing anywhere — mobile, tablet, or TV</p>
   </header>
 
-  <main>
-    <section>
-      <h2>App Screenshot</h2>
-      <img src="Karaokify_asc1.png" alt="KaraOkify Main Menu" class="screenshot">
-      <img src="Karaokify_asc2.png" alt="KaraOkify Remote to another Device screen" class="screenshot">
-    </section>
+  <nav>
+    <button>Privacy Policy</button>
+    <button>Remote to Device</button>
+    <button>Karaoke Settings</button>
+    <button>My Favorites</button>
+    <button class="highlight">CLICK to Start Search Song</button>
+    <button>Next Song to Playlist</button>
+  </nav>
 
-    <section>
-      <h2>Tutorial</h2>
-      <p>Watch how to use KaraOkify:</p>
-      <a href="https://www.youtube.com/your-tutorial-link" target="_blank" rel="noopener noreferrer">▶ KaraOkify Intro</a>
-    </section>
-  </main>
+  <div class="scoreboard">
+    <h2>🏆 Top 1 Scorer: No top scorer yet</h2>
+    <p>Next Singer: Queue is empty</p>
+  </div>
 
-  <footer>
-    <a href="privacy.html">Privacy Policy</a>
-  </footer>
+  <div>
+    <button class="start-btn">🎤 START SINGING</button>
+  </div>
 </body>
 </html>
