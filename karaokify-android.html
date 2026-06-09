@@ -22,8 +22,15 @@
     h1 {
       font-size: 2.5rem;
       margin: 0;
-      color: #ffd700;
       text-shadow: 2px 2px 6px rgba(0,0,0,0.6);
+    }
+
+    .kara { color: pink; }
+    .oki { color: lightblue; }
+    .fy {
+      background: linear-gradient(90deg, yellow, gold);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
 
     nav {
@@ -56,50 +63,48 @@
       font-weight: bold;
     }
 
-    .scoreboard {
-      margin: 20px auto;
-      max-width: 500px;
-      background: rgba(255,255,255,0.1);
-      border-radius: 15px;
-      padding: 20px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.4);
-    }
-
-    .start-btn {
+    .tutorial {
       margin: 30px auto;
-      display: inline-block;
-      padding: 18px 40px;
-      border-radius: 40px;
-      background: linear-gradient(135deg, #e91e63, #9c27b0);
-      color: #fff;
-      font-size: 1.4rem;
-      font-weight: bold;
-      cursor: pointer;
+      max-width: 600px;
+      background: rgba(0,0,0,0.5);
+      border-radius: 20px;
+      padding: 20px;
       box-shadow: 0 6px 16px rgba(0,0,0,0.5);
-      transition: transform 0.2s;
     }
 
-    .start-btn:hover {
-      transform: scale(1.08);
+    .tutorial h2 {
+      margin-bottom: 15px;
+      color: #ffd700;
+    }
+
+    iframe {
+      width: 100%;
+      height: 315px;
+      border-radius: 12px;
+      border: none;
     }
 
     /* Responsive tweaks */
     @media (max-width: 768px) {
       h1 { font-size: 2rem; }
       nav button { font-size: 0.9rem; padding: 10px 15px; }
-      .start-btn { font-size: 1.2rem; padding: 14px 30px; }
+      iframe { height: 200px; }
     }
 
     @media (min-width: 1200px) {
       h1 { font-size: 3rem; }
       nav button { font-size: 1.2rem; }
-      .start-btn { font-size: 1.6rem; }
+      iframe { height: 400px; }
     }
   </style>
 </head>
 <body>
   <header>
-    <h1>🎶 KaraOkify</h1>
+    <h1>
+      <span class="kara">Kara</span>
+      <span class="oki">Oki</span>
+      <span class="fy">fy</span> 🎤
+    </h1>
     <p>Sing anywhere — mobile, tablet, or TV</p>
   </header>
 
@@ -112,13 +117,10 @@
     <button>Next Song to Playlist</button>
   </nav>
 
-  <div class="scoreboard">
-    <h2>🏆 Top 1 Scorer: No top scorer yet</h2>
-    <p>Next Singer: Queue is empty</p>
-  </div>
-
-  <div>
-    <button class="start-btn">🎤 START SINGING</button>
+  <div class="tutorial">
+    <h2>📺 How to Use KaraOkify</h2>
+    <!-- Replace with your actual tutorial video link -->
+    <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" allowfullscreen></iframe>
   </div>
 </body>
 </html>
