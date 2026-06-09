@@ -41,7 +41,7 @@
       margin: 30px 0;
     }
 
-    nav button {
+    nav a button {
       padding: 14px 22px;
       border: none;
       border-radius: 20px;
@@ -52,7 +52,7 @@
       transition: transform 0.2s, background 0.3s;
     }
 
-    nav button:hover {
+    nav a button:hover {
       background: rgba(255,255,255,0.4);
       transform: scale(1.05);
     }
@@ -87,13 +87,13 @@
     /* Responsive tweaks */
     @media (max-width: 768px) {
       h1 { font-size: 2rem; }
-      nav button { font-size: 0.9rem; padding: 10px 15px; }
+      nav a button { font-size: 0.9rem; padding: 10px 15px; }
       iframe { height: 200px; }
     }
 
     @media (min-width: 1200px) {
       h1 { font-size: 3rem; }
-      nav button { font-size: 1.2rem; }
+      nav a button { font-size: 1.2rem; }
       iframe { height: 400px; }
     }
   </style>
@@ -109,12 +109,15 @@
   </header>
 
   <nav>
-    <button>Privacy Policy</button>
-    <button>Remote to Device</button>
-    <button>Karaoke Settings</button>
-    <button>My Favorites</button>
-    <button class="highlight">CLICK to Start Search Song</button>
-    <button>Next Song to Playlist</button>
+    <!-- Replace href with your actual Privacy Policy URL -->
+    <a href="https://yourdomain.com/privacy-policy" target="_blank">
+      <button>Privacy Policy</button>
+    </a>
+    <a href="#"><button>Remote to Device</button></a>
+    <a href="#"><button>Karaoke Settings</button></a>
+    <a href="#"><button>My Favorites</button></a>
+    <a href="#"><button class="highlight">CLICK to Start Search Song</button></a>
+    <a href="#"><button>Next Song to Playlist</button></a>
   </nav>
 
   <div class="tutorial">
