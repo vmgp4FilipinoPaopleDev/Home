@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KaraOkify</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: linear-gradient(135deg, #6a1b9a, #f06292, #ff9800);
+      color: #fff;
+      text-align: center;
+    }
+
+    header {
+      padding: 30px 20px;
+      background: rgba(0,0,0,0.4);
+      backdrop-filter: blur(10px);
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      margin: 0;
+      text-shadow: 2px 2px 6px rgba(0,0,0,0.6);
+    }
+
+    .kara { color: pink; }
+    .oki { color: lightblue; }
+    .fy {
+      background: linear-gradient(90deg, yellow, gold);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    nav {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 15px;
+      margin: 30px 0;
+    }
+
+    nav a button {
+      padding: 14px 22px;
+      border: none;
+      border-radius: 20px;
+      background: rgba(255,255,255,0.2);
+      color: #fff;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: transform 0.2s, background 0.3s;
+    }
+
+    nav a button:hover {
+      background: rgba(255,255,255,0.4);
+      transform: scale(1.05);
+    }
+
+    .highlight {
+      background: linear-gradient(90deg, #ffd700, #ffeb3b);
+      color: #000;
+      font-weight: bold;
+    }
+
+    .tutorial {
+      margin: 30px auto;
+      max-width: 600px;
+      background: rgba(0,0,0,0.5);
+      border-radius: 20px;
+      padding: 20px;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.5);
+    }
+
+    .tutorial h2 {
+      margin-bottom: 15px;
+      color: #ffd700;
+    }
+
+    iframe {
+      width: 100%;
+      height: 315px;
+      border-radius: 12px;
+      border: none;
+    }
+
+    @media (max-width: 768px) {
+      h1 { font-size: 2rem; }
+      nav a button { font-size: 0.9rem; padding: 10px 15px; }
+      iframe { height: 200px; }
+    }
+
+    @media (min-width: 1200px) {
+      h1 { font-size: 3rem; }
+      nav a button { font-size: 1.2rem; }
+      iframe { height: 400px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>
+      🎤 <span class="kara">Kara</span><span class="oki">Oki</span><span class="fy">fy</span> 🎶
+    </h1>
+    <p>Sing anywhere — mobile, tablet, or TV</p>
+  </header>
+
+  <nav>
+    <a href="KOFandroidprivacypolicy.html" target="_blank">
+      <button>Privacy Policy</button>
+    </a>
+    <a href="#"><button>Remote to Device</button></a>
+    <a href="#"><button>Karaoke Settings</button></a>
+    <a href="#"><button>My Favorites</button></a>
+    <a href="#"><button class="highlight">CLICK to Start Search Song</button></a>
+    <a href="#"><button>Next Song to Playlist</button></a>
+  </nav>
+
+  <div class="tutorial">
+    <h2>📺 How to Use KaraOkify</h2>
+    <iframe src="https://www.youtube.com/" allowfullscreen></iframe>
+  </div>
+</body>
+</html>
