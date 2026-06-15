@@ -51,6 +51,111 @@
       color: #6a1b9a;
     }
 
+    .platform-logo, .social-logo {
+      width: 40px;
+      height: auto;
+      margin: 10px;
+      transition: transform 0.3s;
+      vertical-align: middle;
+    }
+
+    .platform-logo:hover, .social-logo:hover {
+      transform: scale(1.2);
+    }
+
+    .platform-label {
+      display: block;
+      margin-top: 0.5rem;
+      font-size: 1rem;
+      font-weight: 600;
+      color: #333;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .social-links a {
+      margin: 0 15px;
+      display: inline-block;
+      font-weight: 500;
+      color: #0066cc;
+      transition: color 0.3s;
+    }
+
+    .social-links a:hover {
+      color: #ff4081;
+      text-decoration: underline;
+    }
+
+    @media (max-width: 768px) {
+      header h1 { font-size: 2rem; }
+      section { margin: 1rem; padding: 1.5rem; }
+      .platform-logo, .social-logo { width: 30px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>vmgp_4FilipinoPeopleDev</h1>
+    <p>🇵🇭 Filipino Developer • Creating Android & iOS app to make everyone life things easier</p>
+  </header>
+
+  <!-- Projects first -->
+  <section>
+    <h2>📱 Projects</h2>
+    <div>
+      <a href="android.html">
+        <img src="android-logo.png" alt="Android Project" class="platform-logo">
+        <span class="platform-label">Android</span>
+      </a>
+    </div>
+    <div>
+      <a href="ios.html">
+        <img src="apple-logo.png" alt="Apple Project" class="platform-logo">
+        <span class="platform-label">Apple</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- Social Media after Projects -->
+  <section>
+    <h2>🌐 Social Media</h2>
+    <p class="social-links">
+      <a href="https://instagram.com/" target="_blank">
+        <img src="instagram-logo.png" alt="Instagram" class="social-logo"> Instagram - under construction
+      </a>
+      <a href="https://tiktok.com/" target="_blank">
+        <img src="tiktok-logo.png" alt="TikTok" class="social-logo"> TikTok - under construction
+      </a>
+      <a href="https://facebook.com/" target="_blank">
+        <img src="facebook-logo.png" alt="Facebook" class="social-logo"> Facebook - under construction
+      </a>
+      <a href="https://x.com/" target="_blank">
+        <img src="x-logo.png" alt="X (Twitter)" class="social-logo"> X (Twitter) - under construction
+      </a>
+    </p>
+  </section>
+</body>
+</html>
+    section {
+      max-width: 900px;
+      margin: 2rem auto;
+      background: rgba(255,255,255,0.85);
+      border-radius: 16px;
+      padding: 2rem;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.2);
+      text-align: center;
+    }
+
+    section h2 {
+      border-bottom: 2px solid #eee;
+      padding-bottom: 0.5rem;
+      margin-bottom: 1rem;
+      color: #6a1b9a;
+    }
+
     .platform-logo {
       width: 60px;
       height: auto;
