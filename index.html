@@ -4,12 +4,16 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>vmgp_4FilipinoPeopleDev</title>
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
   <style>
     body {
       font-family: 'Segoe UI', Arial, sans-serif;
       margin: 0;
       background: linear-gradient(135deg, #6a1b9a, #f06292, #ff9800);
       color: #333;
+      min-height: 100vh;
     }
 
     header {
@@ -47,28 +51,8 @@
     section h2 {
       border-bottom: 2px solid #eee;
       padding-bottom: 0.5rem;
-      margin-bottom: 1rem;
+      margin-bottom: 1.5rem;
       color: #6a1b9a;
-    }
-
-    .platform-logo, .social-logo {
-      width: 40px;
-      height: auto;
-      margin: 10px;
-      transition: transform 0.3s;
-      vertical-align: middle;
-    }
-
-    .platform-logo:hover, .social-logo:hover {
-      transform: scale(1.2);
-    }
-
-    .platform-label {
-      display: block;
-      margin-top: 0.5rem;
-      font-size: 1rem;
-      font-weight: 600;
-      color: #333;
     }
 
     a {
@@ -76,234 +60,117 @@
       color: inherit;
     }
 
+    /* --- Project Icon Styles --- */
+    .project-container {
+      display: flex;
+      justify-content: center;
+      gap: 3rem;
+      margin-bottom: 1rem;
+    }
+
+    .platform-link {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      color: #333;
+      transition: transform 0.3s ease;
+    }
+
+    .platform-link i {
+      font-size: 4rem; /* Big icons for projects */
+      margin-bottom: 0.5rem;
+      transition: color 0.3s ease;
+    }
+
+    .platform-label {
+      font-size: 1.2rem;
+      font-weight: 600;
+    }
+
+    /* Hover Colors for Brands */
+    .platform-link:hover { transform: scale(1.1); }
+    .platform-link.android:hover i { color: #3DDC84; }
+    .platform-link.apple:hover i { color: #555555; }
+
+    /* --- Social Media Links Styles --- */
+    .social-links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 15px;
+    }
+
     .social-links a {
-      margin: 0 15px;
-      display: inline-block;
+      display: flex;
+      align-items: center;
+      gap: 8px;
       font-weight: 500;
       color: #0066cc;
-      transition: color 0.3s;
+      background: rgba(0, 0, 0, 0.05);
+      padding: 10px 15px;
+      border-radius: 8px;
+      transition: color 0.3s, background 0.3s, transform 0.2s;
+    }
+
+    .social-links a i {
+      font-size: 1.3rem;
     }
 
     .social-links a:hover {
-      color: #ff4081;
-      text-decoration: underline;
+      background: rgba(0, 0, 0, 0.1);
+      transform: scale(1.05);
     }
+    
+    .social-links a.ig:hover { color: #E1306C; }
+    .social-links a.tt:hover { color: #000000; }
+    .social-links a.fb:hover { color: #1877F2; }
+    .social-links a.tw:hover { color: #000000; }
 
     @media (max-width: 768px) {
       header h1 { font-size: 2rem; }
       section { margin: 1rem; padding: 1.5rem; }
-      .platform-logo, .social-logo { width: 30px; }
+      .platform-link i { font-size: 3rem; }
+      .project-container { gap: 2rem; }
     }
   </style>
 </head>
 <body>
   <header>
     <h1>vmgp_4FilipinoPeopleDev</h1>
-    <p>🇵🇭 Filipino Developer • Creating Android & iOS app to make everyone life things easier</p>
+    <p>🇵🇭 Filipino Developer • Creating Android & iOS apps to make everyday life easier</p>
   </header>
 
-  <!-- Projects first -->
   <section>
-    <h2>📱 Projects</h2>
-    <div>
-      <a href="android.html">
-        <img src="android-logo.png" alt="Android Project" class="platform-logo">
+    <h2><i class="fa-solid fa-mobile-screen"></i> Projects</h2>
+    <div class="project-container">
+      <a href="android.html" class="platform-link android">
+        <i class="fa-brands fa-android"></i>
         <span class="platform-label">Android</span>
       </a>
-    </div>
-    <div>
-      <a href="ios.html">
-        <img src="apple-logo.png" alt="Apple Project" class="platform-logo">
+      
+      <a href="ios.html" class="platform-link apple">
+        <i class="fa-brands fa-apple"></i>
         <span class="platform-label">Apple</span>
       </a>
     </div>
   </section>
 
-  <!-- Social Media after Projects -->
   <section>
-    <h2>🌐 Social Media</h2>
-    <p class="social-links">
-      <a href="https://instagram.com/" target="_blank">
-        <img src="instagram-logo.png" alt="Instagram" class="social-logo"> Instagram - under construction
+    <h2><i class="fa-solid fa-globe"></i> Social Media</h2>
+    <div class="social-links">
+      <a href="https://instagram.com/" target="_blank" class="ig">
+        <i class="fa-brands fa-instagram"></i> Instagram - under construction
       </a>
-      <a href="https://tiktok.com/" target="_blank">
-        <img src="tiktok-logo.png" alt="TikTok" class="social-logo"> TikTok - under construction
+      <a href="https://tiktok.com/" target="_blank" class="tt">
+        <i class="fa-brands fa-tiktok"></i> TikTok - under construction
       </a>
-      <a href="https://facebook.com/" target="_blank">
-        <img src="facebook-logo.png" alt="Facebook" class="social-logo"> Facebook - under construction
+      <a href="https://facebook.com/" target="_blank" class="fb">
+        <i class="fa-brands fa-facebook"></i> Facebook - under construction
       </a>
-      <a href="https://x.com/" target="_blank">
-        <img src="x-logo.png" alt="X (Twitter)" class="social-logo"> X (Twitter) - under construction
-      </a>
-    </p>
-  </section>
-</body>
-</html>
-    section {
-      max-width: 900px;
-      margin: 2rem auto;
-      background: rgba(255,255,255,0.85);
-      border-radius: 16px;
-      padding: 2rem;
-      box-shadow: 0 6px 16px rgba(0,0,0,0.2);
-      text-align: center;
-    }
-
-    section h2 {
-      border-bottom: 2px solid #eee;
-      padding-bottom: 0.5rem;
-      margin-bottom: 1rem;
-      color: #6a1b9a;
-    }
-
-    .platform-logo {
-      width: 60px;
-      height: auto;
-      margin: 10px;
-      transition: transform 0.3s;
-      display: block;
-      margin-left: auto;
-      margin-right: auto;
-    }
-
-    .platform-logo:hover {
-      transform: scale(1.2);
-    }
-
-    .platform-label {
-      margin-top: 0.5rem;
-      font-size: 1rem;
-      font-weight: 600;
-      color: #333;
-    }
-
-    a {
-      text-decoration: none;
-      color: inherit;
-    }
-
-    .social-links a {
-      margin: 0 10px;
-    }
-
-    @media (max-width: 768px) {
-      header h1 { font-size: 2rem; }
-      section { margin: 1rem; padding: 1.5rem; }
-      .platform-logo { width: 50px; }
-    }
-  </style>
-</head>
-<body>
-  <header>
-    <h1>vmgp_4FilipinoPeopleDev</h1>
-    <p>🇵🇭 Filipino Developer • Creating Android & iOS app to make everyone life things easier</p>
-  </header>
-
-  <!-- Projects first -->
-  <section>
-    <h2>📱 Projects</h2>
-    <div>
-      <a href="android.html">
-        <img src="android-logo.png" alt="Android Project" class="platform-logo">
-        <div class="platform-label">Android</div>
+      <a href="https://x.com/" target="_blank" class="tw">
+        <i class="fa-brands fa-x-twitter"></i> X (Twitter) - under construction
       </a>
     </div>
-    <div>
-      <a href="ios.html">
-        <img src="apple-logo.png" alt="Apple Project" class="platform-logo">
-        <div class="platform-label">Apple</div>
-      </a>
-    </div>
-  </section>
-
-  <!-- Social Media after Projects -->
-  <section>
-    <h2>🌐 Social Media</h2>
-    <p class="social-links">
-      <a href="https://instagram.com/" target="_blank">📸 Instagram - under construction</a> |
-      <a href="https://tiktok.com/" target="_blank">🎵 TikTok - under construction</a> |
-      <a href="https://facebook.com/" target="_blank">📘 Facebook - under construction</a> |
-      <a href="https://x.com/" target="_blank">🐦 X (Twitter) - under construction</a>
-    </p>
-  </section>
-</body>
-</html>
-    section {
-      max-width: 900px;
-      margin: 2rem auto;
-      background: rgba(255,255,255,0.85);
-      border-radius: 16px;
-      padding: 2rem;
-      box-shadow: 0 6px 16px rgba(0,0,0,0.2);
-      text-align: center;
-    }
-
-    section h2 {
-      border-bottom: 2px solid #eee;
-      padding-bottom: 0.5rem;
-      margin-bottom: 1rem;
-      color: #6a1b9a;
-    }
-
-    a {
-      color: #0066cc;
-      text-decoration: none;
-      font-weight: 500;
-      transition: color 0.3s, transform 0.2s;
-    }
-
-    a:hover {
-      color: #ff4081;
-      text-decoration: underline;
-      transform: scale(1.05);
-    }
-
-    .emoji-link {
-      font-size: 3rem; /* make emojis big */
-      margin: 0 15px;
-      display: inline-block;
-      transition: transform 0.3s;
-    }
-
-    .emoji-link:hover {
-      transform: scale(1.3);
-    }
-
-    .social-links a {
-      margin: 0 10px;
-    }
-
-    @media (max-width: 768px) {
-      header h1 { font-size: 2rem; }
-      section { margin: 1rem; padding: 1.5rem; }
-      .emoji-link { font-size: 2.5rem; }
-    }
-  </style>
-</head>
-<body>
-  <header>
-    <h1>vmgp_4FilipinoPeopleDev</h1>
-    <p>🇵🇭 Filipino Developer • Creating Android & iOS app to make everyone life things easier</p>
-  </header>
-
-  <!-- Projects first -->
-  <section>
-    <h2>📱 Projects</h2>
-    <p>
-      <a href="android.html" class="emoji-link">🤖</a>
-      <a href="ios.html" class="emoji-link">🍎</a>
-    </p>
-  </section>
-
-  <!-- Social Media after Projects -->
-  <section>
-    <h2>🌐 Social Media</h2>
-    <p class="social-links">
-      <a href="https://instagram.com/" target="_blank">Instagram - under construction</a> |
-      <a href="https://tiktok.com/" target="_blank">TikTok - under construction</a> |
-      <a href="https://facebook.com/" target="_blank">Facebook - under construction</a> |
-      <a href="https://x.com/" target="_blank">X (Twitter) - under construction</a>
-    </p>
   </section>
 </body>
 </html>
