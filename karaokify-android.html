@@ -94,9 +94,21 @@
       border-radius: 12px;
     }
 
+    /* Play store badge specific styling */
+    .play-store-badge {
+      height: 60px;
+      margin-top: 15px;
+      transition: transform 0.2s;
+    }
+    
+    .play-store-badge:hover {
+      transform: scale(1.05);
+    }
+
     @media (max-width: 768px) {
       h1 { font-size: 2rem; }
       nav a button { font-size: 0.9rem; padding: 10px 15px; }
+      .play-store-badge { height: 50px; }
     }
 
     @media (min-width: 1200px) {
@@ -111,6 +123,10 @@
       🤖 <span class="kara">Kara</span><span class="oki">Oki</span><span class="fy">fy</span> Android 🎶
     </h1>
     <p>Sing anywhere — Android phone, tablet, or TV</p>
+    
+    <a href="https://play.google.com/store/apps/details?id=com.patiag.karaokify" target="_blank" rel="noopener">
+      <img class="play-store-badge" alt="Get it on Google Play" src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png">
+    </a>
   </header>
 
   <nav>
@@ -127,7 +143,6 @@
   <div class="tutorial">
     <h2>📺 How to Use KaraOkify Android</h2>
     
-    <!-- Button to show video -->
     <button id="showVideoBtn" style="
       padding: 12px 20px;
       border: none;
@@ -141,7 +156,6 @@
       ▶ Watch Video Tutorial
     </button>
 
-    <!-- Hidden video -->
     <div id="videoContainer" style="display:none; margin-top:20px;">
       <div class="video-wrapper">
         <video controls>
