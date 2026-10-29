@@ -1,171 +1,674 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>KaraOkeGO</title>
   <style>
+    * {
+      box-sizing: border-box;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+
     body {
       margin: 0;
-      font-family: 'Segoe UI', Arial, sans-serif;
-      background: linear-gradient(135deg, #6a1b9a, #f06292, #ff9800);
+      padding: 0;
+      min-height: 100vh;
+      font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      background: linear-gradient(
+        180deg,
+        #706259 0%,
+        #8c6b5d 20%,
+        #b86b52 40%,
+        #d46548 52%,
+        #593837 68%,
+        #2d2a32 82%,
+        #484848 100%
+      );
+      background-attachment: fixed;
       color: #fff;
-      text-align: center;
+      display: flex;
+      justify-content: center;
     }
 
-    header {
-      padding: 30px 20px;
-      background: rgba(0,0,0,0.4);
-      backdrop-filter: blur(10px);
+    .app-container {
+      width: 100%;
+      max-width: 430px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 14px 14px 12px;
     }
 
-    h1 {
-      font-size: 2.5rem;
-      margin: 0;
-      text-shadow: 2px 2px 6px rgba(0,0,0,0.6);
+    /* --- TOP BAR --- */
+    .top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
     }
 
-    .kara { color: pink; }
-    .oki { color: lightblue; }
-    .fy {
-      background: linear-gradient(90deg, yellow, gold);
+    .brand-group {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .mic-icon {
+      font-size: 1.3rem;
+      color: #ffca28;
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.4));
+    }
+
+    .brand-title {
+      font-size: 1.45rem;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.4);
+    }
+
+    .go-text {
+      background: linear-gradient(90deg, #ff8a65, #ab47bc);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
 
-    nav {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 15px;
-      margin: 30px 0;
+    .r-badge {
+      background: #1a1a1a;
+      border: 1.5px solid #ffd600;
+      border-radius: 7px;
+      padding: 2px 8px;
+      font-family: monospace;
+      font-weight: 700;
+      font-size: 0.9rem;
+      color: #ffd600;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.4);
     }
 
-    nav a button {
-      padding: 14px 22px;
-      border: none;
-      border-radius: 20px;
-      background: rgba(255,255,255,0.2);
+    .r-badge span {
+      color: #00e5ff;
+    }
+
+    .camera-btn {
+      background: rgba(255, 255, 255, 0.18);
+      border: 1px solid rgba(255, 255, 255, 0.35);
       color: #fff;
-      font-size: 1rem;
-      cursor: pointer;
-      transition: transform 0.2s, background 0.3s;
-    }
-
-    nav a button:hover {
-      background: rgba(255,255,255,0.4);
-      transform: scale(1.05);
-    }
-
-    .highlight {
-      background: linear-gradient(90deg, #ffd700, #ffeb3b);
-      color: #000;
-      font-weight: bold;
-    }
-
-    .tutorial {
-      margin: 30px auto;
-      max-width: 600px;
-      background: rgba(0,0,0,0.5);
+      padding: 6px 14px;
       border-radius: 20px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      backdrop-filter: blur(6px);
+      transition: transform 0.15s, background 0.2s;
+    }
+
+    .camera-btn:active {
+      transform: scale(0.95);
+    }
+
+    /* --- UPPER ACTION BUTTONS --- */
+    .top-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    .btn-songbook {
+      width: 100%;
+      padding: 18px;
+      border-radius: 22px;
+      background: linear-gradient(180deg, #389454, #2b7a43);
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      color: #fff;
+      font-size: 1.3rem;
+      font-weight: 700;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.35);
+      text-decoration: none;
+    }
+
+    .sub-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .btn-rankings,
+    .btn-favorites {
+      padding: 16px 12px;
+      border-radius: 22px;
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      color: #fff;
+      font-size: 1.15rem;
+      font-weight: 700;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.35);
+      text-decoration: none;
+    }
+
+    .btn-rankings { background: linear-gradient(180deg, #2b74a8, #1f5782); }
+    .btn-favorites { background: linear-gradient(180deg, #b83b56, #912940); }
+
+    /* --- PILL LINKS --- */
+    .info-pills {
+      display: flex;
+      justify-content: center;
+      gap: 14px;
+      margin: 4px 0 16px;
+    }
+
+    .pill-btn {
+      background: rgba(255, 255, 255, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.28);
+      border-radius: 25px;
+      padding: 9px 18px;
+      color: #fff;
+      font-size: 0.85rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      text-decoration: none;
+      cursor: pointer;
+      backdrop-filter: blur(8px);
+    }
+
+    .pill-btn:hover { background: rgba(255, 255, 255, 0.3); }
+
+    /* --- KEYPAD CONSOLE --- */
+    .keypad-card {
+      background: rgba(8, 8, 10, 0.94);
+      border: 1.2px solid #9e7f27;
+      border-radius: 22px;
+      padding: 16px 14px 14px;
+      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.65);
+      margin-bottom: 14px;
+    }
+
+    .song-display {
+      text-align: center;
+      padding: 6px 10px 14px;
+    }
+
+    .digits-row {
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 1.8rem;
+      font-weight: 900;
+      letter-spacing: 8px;
+      color: #ffd600;
+      margin-bottom: 4px;
+      min-height: 34px;
+    }
+
+    .display-subtext {
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.8px;
+      color: #4fc3f7;
+      text-transform: uppercase;
+    }
+
+    .numpad-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+    }
+
+    .key-btn {
+      background: #424242;
+      border: 4px solid #242424;
+      border-radius: 16px;
+      color: #fff;
+      font-size: 1.3rem;
+      font-weight: 700;
+      padding: 10px 0;
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .key-btn:active { transform: scale(0.95); filter: brightness(1.25); }
+    .key-clear { background: #b53d3d; font-size: 0.9rem; }
+    .key-back { background: #b86f28; font-size: 1.15rem; }
+    .key-reserve { background: #3d3d3d; color: #0e0e0e; font-size: 0.85rem; font-weight: 800; }
+    .key-playnext { background: #525252; color: #e0e0e0; font-size: 0.82rem; font-weight: 800; }
+    .key-record { background: #cc2952; color: #fff; font-size: 0.85rem; font-weight: 800; }
+
+    /* --- BOTTOM NAVIGATION DOCK --- */
+    .bottom-dock {
+      background: rgba(65, 65, 65, 0.78);
+      border: 1.2px solid #9e7f27;
+      border-radius: 26px;
+      padding: 8px 6px;
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 4px;
+      backdrop-filter: blur(10px);
+    }
+
+    .dock-item {
+      background: rgba(25, 25, 25, 0.75);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 50%;
+      aspect-ratio: 1 / 1;
+      width: 100%;
+      max-width: 52px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      color: #fff;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .dock-item.active { background: #ffd600; color: #111; font-weight: 800; }
+    .dock-icon { font-size: 1.05rem; line-height: 1; margin-bottom: 3px; }
+    .dock-label { font-size: 0.48rem; font-weight: 800; letter-spacing: 0.3px; text-transform: uppercase; }
+
+    /* --- MODALS OVERLAY --- */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.75);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      padding: 16px;
+      z-index: 100;
+      backdrop-filter: blur(6px);
+    }
+
+    .modal-box {
+      background: #1e1e24;
+      border: 1.5px solid #ffd600;
+      border-radius: 22px;
+      max-width: 440px;
+      width: 100%;
+      max-height: 85vh;
+      display: flex;
+      flex-direction: column;
       padding: 20px;
-      box-shadow: 0 6px 16px rgba(0,0,0,0.5);
+      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.8);
     }
 
-    .tutorial h2 {
-      margin-bottom: 15px;
-      color: #ffd700;
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
     }
 
-    /* Responsive video wrapper */
+    .modal-header h3 {
+      margin: 0;
+      color: #ffd600;
+      font-size: 1.2rem;
+    }
+
+    .close-modal {
+      background: #e53935;
+      color: #fff;
+      border: none;
+      border-radius: 50%;
+      width: 30px;
+      height: 30px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .modal-body {
+      overflow-y: auto;
+      text-align: left;
+      font-size: 0.85rem;
+      line-height: 1.5;
+      color: rgba(255, 255, 255, 0.85);
+      padding-right: 6px;
+      margin-bottom: 14px;
+    }
+
+    .modal-body h4 { color: #4fc3f7; margin: 12px 0 4px; font-size: 0.95rem; }
+    .modal-body h5 { color: #ffd600; margin: 8px 0 2px; font-size: 0.88rem; }
+    .modal-body p { margin: 4px 0 8px; }
+    .modal-body ul { padding-left: 18px; margin: 4px 0 8px; }
+    .modal-body li { margin-bottom: 4px; }
+    .modal-body hr { border: none; border-top: 1px solid rgba(255,255,255,0.15); margin: 12px 0; }
+
     .video-wrapper {
-      position: relative;
       width: 100%;
-      padding-top: 56.25%; /* 16:9 ratio */
-    }
-
-    .video-wrapper video {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
+      aspect-ratio: 16 / 9;
+      background: #000;
       border-radius: 12px;
+      overflow: hidden;
+      margin-bottom: 12px;
     }
 
-    @media (max-width: 768px) {
-      h1 { font-size: 2rem; }
-      nav a button { font-size: 0.9rem; padding: 10px 15px; }
-    }
+    .video-wrapper video { width: 100%; height: 100%; object-fit: cover; }
 
-    @media (min-width: 1200px) {
-      h1 { font-size: 3rem; }
-      nav a button { font-size: 1.2rem; }
+    .modal-footer-btn {
+      background: #ffd600;
+      color: #111;
+      border: none;
+      border-radius: 12px;
+      padding: 12px;
+      font-weight: bold;
+      font-size: 0.95rem;
+      cursor: pointer;
+      width: 100%;
     }
   </style>
 </head>
 <body>
-  <header>
-    <h1>
-      🎤 <span class="Kara">Kara</span><span class="Oke">Oke</span><span class="GO">GO</span> 🎶
-    </h1>
-    <p>Sing anywhere — mobile, tablet, or TV</p>
-  </header>
 
-  <nav>
-    <a href="karaokego_ios_policy.html" target="_blank">
-      <button>Privacy Policy</button>
-    </a>
-    <a href="remote_tutorial.html" target="_blank">
-      <button>Remote to Device</button>
-    </a>
-    <a href="settings_tutorial.html" target="_blank">
-      <button>Karaoke Settings</button>
-    </a>
-    <a href="favorites_tutorial.html" target="_blank">
-      <button>My Favorites</button>
-    </a>
-    <a href="search_tutorial.html" target="_blank">
-      <button class="highlight">CLICK to Start Search Song</button>
-    </a>
-    <a href="playlist_tutorial.html" target="_blank">
-      <button>Next Song to Playlist</button>
-    </a>
-  </nav>
+  <div class="app-container">
+    <!-- TOP BAR -->
+    <div>
+      <header class="top-bar">
+        <div class="brand-group">
+          <span class="mic-icon">🎙️</span>
+          <span class="brand-title">KaraOke<span class="go-text">GO</span></span>
+          <div class="r-badge">R:<span id="reserveCount">0</span></div>
+        </div>
+        <button class="camera-btn" onclick="alert('Camera feature triggered!')">
+          📷 Camera
+        </button>
+      </header>
 
-  <div class="tutorial">
-    <h2>📺 How to Use KaraOkeGO</h2>
-    
-    <!-- Button to show video -->
-    <button id="showVideoBtn" style="
-      padding: 12px 20px;
-      border: none;
-      border-radius: 20px;
-      background: linear-gradient(90deg, #ffd700, #ffeb3b);
-      color: #000;
-      font-weight: bold;
-      cursor: pointer;
-      transition: transform 0.2s;
-    ">
-      ▶ Watch Video Tutorial
-    </button>
+      <!-- MAIN TOP BUTTONS -->
+      <section class="top-actions">
+        <a href="search_tutorial.html" target="_blank" class="btn-songbook">
+          📖 KaraOke<span class="go-text">GO</span>&nbsp;Song Book
+        </a>
 
-    <!-- Hidden video -->
-    <div id="videoContainer" style="display:none; margin-top:20px;">
-      <div class="video-wrapper">
-        <video controls>
-          <source src="image/KaraOkify Tutorial.mp4" type="video/mp4">
-          Your browser does not support the video tag.
-        </video>
+        <div class="sub-actions">
+          <a href="playlist_tutorial.html" target="_blank" class="btn-rankings">
+            🏆 Rankings
+          </a>
+          <a href="favorites_tutorial.html" target="_blank" class="btn-favorites">
+            ❤️ Favorites
+          </a>
+        </div>
+      </section>
+
+      <!-- PILL BUTTONS -->
+      <div class="info-pills">
+        <button class="pill-btn" id="openPrivacyBtn">
+          🛡️ Privacy Policy
+        </button>
+        <button class="pill-btn" id="openInstructionsBtn">
+          📒 App Instructions
+        </button>
       </div>
+    </div>
+
+    <!-- KEYPAD & BOTTOM DOCK -->
+    <div>
+      <main class="keypad-card">
+        <div class="song-display">
+          <div class="digits-row" id="digitDisplay">- - - - - -</div>
+          <div class="display-subtext" id="statusSubtext">🎵 KaraOkeGO - ENTER YOUR SONG</div>
+        </div>
+
+        <div class="numpad-grid">
+          <button class="key-btn" onclick="pressDigit('1')">1</button>
+          <button class="key-btn" onclick="pressDigit('2')">2</button>
+          <button class="key-btn" onclick="pressDigit('3')">3</button>
+
+          <button class="key-btn" onclick="pressDigit('4')">4</button>
+          <button class="key-btn" onclick="pressDigit('5')">5</button>
+          <button class="key-btn" onclick="pressDigit('6')">6</button>
+
+          <button class="key-btn" onclick="pressDigit('7')">7</button>
+          <button class="key-btn" onclick="pressDigit('8')">8</button>
+          <button class="key-btn" onclick="pressDigit('9')">9</button>
+
+          <button class="key-btn key-clear" onclick="clearDigits()">CLEAR</button>
+          <button class="key-btn" onclick="pressDigit('0')">0</button>
+          <button class="key-btn key-back" onclick="backspaceDigit()">⌫</button>
+
+          <button class="key-btn key-reserve" onclick="reserveSong()">⊕ RESERVE</button>
+          <button class="key-btn key-playnext" onclick="playNextSong()">▶ PLAY NEXT</button>
+          <button class="key-btn key-record" onclick="toggleRecord()">⦿ RECORD</button>
+        </div>
+      </main>
+
+      <!-- BOTTOM NAVIGATION BAR -->
+      <nav class="bottom-dock">
+        <div class="dock-item active">
+          <span class="dock-icon">#</span>
+          <span class="dock-label">KEYPAD</span>
+        </div>
+        <a href="search_tutorial.html" target="_blank" class="dock-item">
+          <span class="dock-icon" style="color:#29b6f6;">🔍</span>
+          <span class="dock-label">SEARCH</span>
+        </a>
+        <a href="playlist_tutorial.html" target="_blank" class="dock-item">
+          <span class="dock-icon" style="color:#66bb6a;">☰</span>
+          <span class="dock-label">RESERVE</span>
+        </a>
+        <div class="dock-item" onclick="updateStatus('⏹ STOPPED PLAYBACK')">
+          <span class="dock-icon" style="color:#ef5350;">⏹</span>
+          <span class="dock-label" style="color:#ef5350;">STOP</span>
+        </div>
+        <div class="dock-item" onclick="updateStatus('▶ PLAYING SONG...')">
+          <span class="dock-icon" style="color:#ffca28;">▶</span>
+          <span class="dock-label">PLAY</span>
+        </div>
+        <div class="dock-item" onclick="skipSong()">
+          <span class="dock-icon" style="color:#fff;">⏭</span>
+          <span class="dock-label">SKIP</span>
+        </div>
+        <a href="settings_tutorial.html" target="_blank" class="dock-item">
+          <span class="dock-icon" style="color:#eceff1;">⚙️</span>
+          <span class="dock-label">SETTINGS</span>
+        </a>
+      </nav>
+    </div>
+  </div>
+
+  <!-- PRIVACY POLICY MODAL -->
+  <div class="modal-overlay" id="privacyModal">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3>🛡️ Privacy Policy</h3>
+        <button class="close-modal" id="closePrivacyBtn">✕</button>
+      </div>
+      <div class="modal-body">
+        <h4 style="color: #ffd600; margin-top:0;">Privacy Policy for KaraOkeGO</h4>
+        <p><strong>Effective Date:</strong> October 14, 2026<br><strong>Last Updated:</strong> October 14, 2026</p>
+        <p>KaraOkeGO ("we," "our," or "us") respects your privacy. This Privacy Policy explains how our iOS application KaraOkeGO (the "App") handles your information.</p>
+        <hr>
+        <h4>1. Information Collection and Use</h4>
+        <h5>A. Personal Data</h5>
+        <p>KaraOkeGO does not collect, store, transmit, or share any personally identifiable information (such as your name, email address, phone number, or physical address). No account creation or sign-in is required to use the App.</p>
+        <h5>B. Local Data Storage</h5>
+        <p>All app preferences, custom song databases (KarGOidx), custom imported karaoke files (KarGOblob), favorite songs, song queue reservations, custom background media, and audio settings are stored locally on your device (using local storage and iOS Documents directory). This data never leaves your device.</p>
+        <hr>
+        <h4>2. On-Device Device Permissions</h4>
+        <p>The App requests the following optional iOS device permissions solely for local, real-time app features:</p>
+        <ul>
+          <li><strong>Microphone Access:</strong> Used locally on-device for real-time audio playback, pitch detection, and performance scoring. Your voice audio is analyzed live on-device and is never recorded, stored remotely, or transmitted to external servers.</li>
+          <li><strong>Camera Access:</strong> Used locally on-device to display a live camera preview background option while singing. Camera feeds are rendered strictly on your screen and are never recorded, saved, or transmitted.</li>
+          <li><strong>Photo Library & File Access:</strong> Used strictly to allow you to select custom background photos/videos or import custom karaoke index/payload files from your device.</li>
+        </ul>
+        <hr>
+        <h4>3. Third-Party Services & Advertising</h4>
+        <p>The App uses Google AdMob to display banner and interstitial advertisements. Third-party advertising partners may collect anonymized device identifiers (such as IDFA, subject to your permission) and non-personal diagnostic data to serve and measure advertisements.</p>
+        <p>For more information on how Google AdMob collects and uses data, please visit Google Privacy & Terms.</p>
+        <hr>
+        <h4>4. Children’s Privacy</h4>
+        <p>KaraOkeGO does not knowingly collect or solicit any personal information from children under the age of 13. The App is designed for general audiences and family entertainment.</p>
+        <hr>
+        <h4>5. Changes to This Privacy Policy</h4>
+        <p>We may update our Privacy Policy from time to time. Any changes will be reflected on this page with an updated "Last Updated" date.</p>
+        <hr>
+        <h4>6. Contact Us</h4>
+        <p>If you have any questions or suggestions regarding this Privacy Policy, please contact us at:</p>
+        <ul>
+          <li><strong>Email:</strong> karaokego.support@gmail.com</li>
+          <li><strong>GitHub Support:</strong> <a href="https://vmgp4filipinopaopledev.github.io/Home/karaokify-ios.html" target="_blank" style="color: #4fc3f7;">View Support Page</a></li>
+        </ul>
+      </div>
+      <button class="modal-footer-btn" id="closePrivacyFooterBtn">CLOSE</button>
+    </div>
+  </div>
+
+  <!-- APP INSTRUCTIONS MODAL -->
+  <div class="modal-overlay" id="instructionsModal">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3>📒 App Instructions</h3>
+        <button class="close-modal" id="closeInstructionsBtn">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="video-wrapper">
+          <video id="tutorialVideo" controls>
+            <source src="image/KaraOkify Tutorial.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+        </div>
+        <h4 style="color: #00e5ff;">KaraOkeGO is .mid, .kar and compress karaoke file Player</h4>
+        
+        <h5>1. Compress Files (*blob & *idx)</h5>
+        <p>Add your favorite song in Settings. You can upload compress/compiled karaoke file (such as KaraGOblob file), you must also import the matching *idx song index file (e.g. KaraGOidx file). The index file contains the catalog listing and song numbers required for searching and playing songs.</p>
+        
+        <h5>2. Standalone MIDI & KAR Files (.mid & .kar)</h5>
+        <p>You can import individual .mid or .kar files directly from your device. KaraOkeGO automatically extracts the synchronized lyrics and adds the song to your catalog.<br><br>Note: Importing individual .mid and .kar files uses uncompressed phone memory.</p>
+        
+        <h5>3. KaraOkeGO Song Compiler App (Save Space)</h5>
+        <p>To save phone storage space, you can use another app (KaraOkeGO Song Compiler App) to compile your entire .mid and .kar song collection into compressed KaraGOblob and create an index list KaraGOidx files before importing them into KaraOkeGO.</p>
+      </div>
+      <button class="modal-footer-btn" id="closeInstructionsFooterBtn">GOT IT</button>
     </div>
   </div>
 
   <script>
-    document.getElementById("showVideoBtn").addEventListener("click", function() {
-      document.getElementById("videoContainer").style.display = "block";
-      this.style.display = "none"; // hide button once clicked
+    let currentCode = "";
+    let reservedTotal = 0;
+    const maxDigits = 6;
+
+    const digitDisplay = document.getElementById("digitDisplay");
+    const statusSubtext = document.getElementById("statusSubtext");
+    const reserveCount = document.getElementById("reserveCount");
+
+    function renderDisplay() {
+      let formatted = "";
+      for (let i = 0; i < maxDigits; i++) {
+        formatted += (currentCode[i] ? currentCode[i] : "-") + (i < maxDigits - 1 ? " " : "");
+      }
+      digitDisplay.textContent = formatted;
+    }
+
+    function pressDigit(num) {
+      if (currentCode.length < maxDigits) {
+        currentCode += num;
+        renderDisplay();
+        statusSubtext.textContent = "🎵 CODE: " + currentCode;
+      }
+    }
+
+    function clearDigits() {
+      currentCode = "";
+      renderDisplay();
+      statusSubtext.textContent = "🎵 KaraOkeGO - ENTER YOUR SONG";
+    }
+
+    function backspaceDigit() {
+      currentCode = currentCode.slice(0, -1);
+      renderDisplay();
+      if (currentCode.length === 0) {
+        statusSubtext.textContent = "🎵 KaraOkeGO - ENTER YOUR SONG";
+      } else {
+        statusSubtext.textContent = "🎵 CODE: " + currentCode;
+      }
+    }
+
+    function reserveSong() {
+      if (currentCode.length === 0) {
+        statusSubtext.textContent = "⚠️ ENTER A SONG NUMBER FIRST";
+        return;
+      }
+      reservedTotal++;
+      reserveCount.textContent = reservedTotal;
+      statusSubtext.textContent = "✅ RESERVED SONG #" + currentCode;
+      currentCode = "";
+      renderDisplay();
+    }
+
+    function playNextSong() {
+      if (currentCode.length === 0) {
+        statusSubtext.textContent = "⚠️ ENTER A SONG NUMBER FIRST";
+        return;
+      }
+      statusSubtext.textContent = "▶️ PLAYING NEXT: #" + currentCode;
+      currentCode = "";
+      renderDisplay();
+    }
+
+    function toggleRecord() {
+      statusSubtext.textContent = "🔴 RECORDING AUDIO...";
+    }
+
+    function skipSong() {
+      if (reservedTotal > 0) {
+        reservedTotal--;
+        reserveCount.textContent = reservedTotal;
+      }
+      statusSubtext.textContent = "⏭ SKIPPED TO NEXT SONG";
+    }
+
+    function updateStatus(msg) {
+      statusSubtext.textContent = msg;
+    }
+
+    // Privacy Policy Modal Logic
+    const privacyModal = document.getElementById("privacyModal");
+    const openPrivacyBtn = document.getElementById("openPrivacyBtn");
+    const closePrivacyBtn = document.getElementById("closePrivacyBtn");
+    const closePrivacyFooterBtn = document.getElementById("closePrivacyFooterBtn");
+
+    openPrivacyBtn.addEventListener("click", () => privacyModal.style.display = "flex");
+    closePrivacyBtn.addEventListener("click", () => privacyModal.style.display = "none");
+    closePrivacyFooterBtn.addEventListener("click", () => privacyModal.style.display = "none");
+
+    // App Instructions Modal Logic
+    const instructionsModal = document.getElementById("instructionsModal");
+    const openInstructionsBtn = document.getElementById("openInstructionsBtn");
+    const closeInstructionsBtn = document.getElementById("closeInstructionsBtn");
+    const closeInstructionsFooterBtn = document.getElementById("closeInstructionsFooterBtn");
+    const tutorialVideo = document.getElementById("tutorialVideo");
+
+    openInstructionsBtn.addEventListener("click", () => instructionsModal.style.display = "flex");
+    closeInstructionsBtn.addEventListener("click", () => {
+      instructionsModal.style.display = "none";
+      tutorialVideo.pause();
+    });
+    closeInstructionsFooterBtn.addEventListener("click", () => {
+      instructionsModal.style.display = "none";
+      tutorialVideo.pause();
+    });
+
+    window.addEventListener("click", (e) => {
+      if (e.target === privacyModal) privacyModal.style.display = "none";
+      if (e.target === instructionsModal) {
+        instructionsModal.style.display = "none";
+        tutorialVideo.pause();
+      }
     });
   </script>
 </body>
