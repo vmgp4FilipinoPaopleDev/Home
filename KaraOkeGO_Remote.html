@@ -1,1 +1,504 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KaraOkeGO Remote</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+:root{
+    --bg:#070b18;
+    --card:#12182d;
+    --card2:#181f39;
+    --blue:#2492ff;
+    --green:#24d46b;
+    --purple:#d946ef;
+    --orange:#ff9800;
+    --red:#ef4444;
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:Inter,sans-serif;
+    background:
+    radial-gradient(circle at top,#18244d 0%,#080b18 50%);
+    color:white;
+    display:flex;
+    justify-content:center;
+    padding:20px;
+}
+
+.phone{
+    width:420px;
+    background:#060914;
+    border-radius:40px;
+    padding:18px;
+    border:1px solid rgba(255,255,255,.08);
+    box-shadow:
+    0 0 50px rgba(0,0,0,.7);
+}
+
+.top-bar{
+    display:flex;
+    gap:10px;
+    margin-bottom:15px;
+}
+
+.ip-box{
+    flex:1;
+    background:var(--card);
+    border-radius:16px;
+    padding:14px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.ip-input{
+    flex:1;
+    background:none;
+    border:none;
+    color:white;
+    font-size:15px;
+}
+
+.ip-input:focus{
+    outline:none;
+}
+
+.btn{
+    border:none;
+    color:white;
+    font-weight:700;
+    border-radius:14px;
+    padding:14px 18px;
+    cursor:pointer;
+}
+
+.scan{
+    background:linear-gradient(135deg,#c026d3,#9333ea);
+}
+
+.connect{
+    background:linear-gradient(135deg,#2196f3,#2563eb);
+}
+
+.status-card{
+    margin-bottom:15px;
+    background:var(--card2);
+    border-radius:18px;
+    padding:15px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.online{
+    background:rgba(23,210,109,.15);
+    color:#56ff9d;
+    padding:6px 12px;
+    border-radius:999px;
+    font-size:12px;
+    font-weight:700;
+}
+
+.player-card{
+    background:linear-gradient(135deg,#111928,#1a2342);
+    border-radius:18px;
+    padding:18px;
+    margin-bottom:15px;
+}
+
+.player-title{
+    color:#8ea2d8;
+    font-size:12px;
+    margin-bottom:10px;
+}
+
+.song{
+    font-size:24px;
+    font-weight:800;
+}
+
+.artist{
+    color:#9ba3b8;
+    margin-top:4px;
+}
+
+.playback{
+    margin-top:18px;
+    display:flex;
+    gap:10px;
+}
+
+.playback button{
+    flex:1;
+    border:none;
+    padding:12px;
+    border-radius:12px;
+    color:white;
+    cursor:pointer;
+}
+
+.play{
+    background:var(--green);
+}
+
+.pause{
+    background:#4f46e5;
+}
+
+.next{
+    background:#d946ef;
+}
+
+.code-display{
+    background:#02160e;
+    border:2px solid #21ff84;
+    border-radius:18px;
+    padding:20px;
+    margin-bottom:15px;
+}
+
+.code-label{
+    color:#5cf29b;
+    font-size:12px;
+    letter-spacing:1px;
+}
+
+.code{
+    font-size:52px;
+    font-weight:800;
+    color:#39ff85;
+    letter-spacing:6px;
+
+    text-shadow:
+        0 0 10px #39ff85,
+        0 0 20px #39ff85;
+}
+
+.keypad{
+    border:2px solid #4b6cff;
+    border-radius:26px;
+    padding:18px;
+    margin-bottom:20px;
+}
+
+.keypad-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:12px;
+}
+
+.key{
+    height:82px;
+    border-radius:50%;
+    border:none;
+    color:white;
+    font-size:32px;
+    font-weight:800;
+    cursor:pointer;
+
+    background:
+    linear-gradient(
+        180deg,
+        #c21547,
+        #8f002c
+    );
+
+    box-shadow:
+    inset 0 4px 12px rgba(255,255,255,.25),
+    0 8px 18px rgba(0,0,0,.5);
+}
+
+.action{
+    border-radius:50%;
+}
+
+.green{
+    background:linear-gradient(180deg,#4ade80,#16a34a);
+}
+
+.pink{
+    background:linear-gradient(180deg,#f472d0,#d946ef);
+}
+
+.blue{
+    background:linear-gradient(180deg,#60a5fa,#2563eb);
+}
+
+.orange{
+    background:linear-gradient(180deg,#ffb74d,#f57c00);
+}
+
+.grey{
+    background:linear-gradient(180deg,#eeeeee,#cfd4db);
+    color:#111;
+}
+
+.bottom-actions{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:10px;
+    margin-bottom:15px;
+}
+
+.bottom-actions button{
+    border:none;
+    border-radius:14px;
+    padding:14px;
+    color:white;
+    font-weight:700;
+}
+
+.replay{background:#1976d2;}
+.play2{background:#22c55e;}
+.next2{background:#d946ef;}
+.stop{background:#ef4444;}
+
+.adjust-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:10px;
+    margin-bottom:15px;
+}
+
+.adjust-card{
+    background:#101522;
+    border-radius:15px;
+    padding:14px;
+    text-align:center;
+}
+
+.adjust-buttons{
+    display:flex;
+    gap:8px;
+    margin-bottom:10px;
+}
+
+.adjust-buttons button{
+    flex:1;
+    border:none;
+    border-radius:10px;
+    padding:8px;
+    color:white;
+    font-size:20px;
+    font-weight:700;
+}
+
+.red{background:#ef4444;}
+.yellow{background:#f59e0b;}
+.green2{background:#22c55e;}
+
+.feature-buttons{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:10px;
+    margin-bottom:20px;
+}
+
+.feature-buttons button{
+    background:#171d30;
+    border:none;
+    color:white;
+    border-radius:14px;
+    padding:14px;
+}
+
+.nav{
+    display:flex;
+    justify-content:space-around;
+    background:#10172e;
+    border-radius:22px;
+    padding:15px;
+}
+
+.nav-item{
+    color:#8f97af;
+    text-align:center;
+    font-size:13px;
+}
+
+.active{
+    color:#44a5ff;
+}
+
+.icon{
+    display:block;
+    font-size:24px;
+    margin-bottom:5px;
+}
+</style>
+</head>
+<body>
+
+<div class="phone">
+
+    <div class="top-bar">
+
+        <div class="ip-box">
+            📶
+            <input class="ip-input"
+                   value="192.168.1.100">
+        </div>
+
+        <button class="btn scan">Scan</button>
+        <button class="btn connect">Connect</button>
+
+    </div>
+
+    <div class="status-card">
+        <strong>KaraOkeGO Remote</strong>
+        <div class="online">CONNECTED</div>
+    </div>
+
+    <div class="player-card">
+
+        <div class="player-title">
+            NOW PLAYING
+        </div>
+
+        <div class="song">
+            My Way
+        </div>
+
+        <div class="artist">
+            Frank Sinatra
+        </div>
+
+        <div class="playback">
+            <button class="pause">Pause</button>
+            <button class="play">Play</button>
+            <button class="next">Next</button>
+        </div>
+
+    </div>
+
+    <div class="code-display">
+
+        <div class="code-label">
+            SONG CODE
+        </div>
+
+        <div class="code">
+            000000
+        </div>
+
+    </div>
+
+    <div class="keypad">
+
+        <div class="keypad-grid">
+
+            <button class="key">1</button>
+            <button class="key">2</button>
+            <button class="key">3</button>
+            <button class="key green">▶</button>
+
+            <button class="key">4</button>
+            <button class="key">5</button>
+            <button class="key">6</button>
+            <button class="key pink">♪</button>
+
+            <button class="key">7</button>
+            <button class="key">8</button>
+            <button class="key">9</button>
+            <button class="key blue">🔍</button>
+
+            <button class="key grey">⌫</button>
+            <button class="key">0</button>
+            <button class="key green">RSV</button>
+            <button class="key orange">📋</button>
+
+        </div>
+
+    </div>
+
+    <div class="bottom-actions">
+
+        <button class="replay">Replay</button>
+        <button class="play2">Play</button>
+        <button class="next2">Next</button>
+        <button class="stop">Stop</button>
+
+    </div>
+
+    <div class="adjust-grid">
+
+        <div class="adjust-card">
+
+            <div class="adjust-buttons">
+                <button class="red">-</button>
+                <button class="red">+</button>
+            </div>
+
+            KEY: 0
+
+        </div>
+
+        <div class="adjust-card">
+
+            <div class="adjust-buttons">
+                <button class="yellow">-</button>
+                <button class="yellow">+</button>
+            </div>
+
+            TEMPO: 1.0
+
+        </div>
+
+        <div class="adjust-card">
+
+            <div class="adjust-buttons">
+                <button class="green2">-</button>
+                <button class="green2">+</button>
+            </div>
+
+            MEL: 3
+
+        </div>
+
+    </div>
+
+    <div class="feature-buttons">
+        <button>🎤 Vocal</button>
+        <button>🔊 Volume</button>
+        <button>🎼 BGV</button>
+    </div>
+
+    <div class="nav">
+
+        <div class="nav-item active">
+            <span class="icon">⌨️</span>
+            Keypad
+        </div>
+
+        <div class="nav-item">
+            <span class="icon">🎵</span>
+            Songs
+        </div>
+
+        <div class="nav-item">
+            <span class="icon">📋</span>
+            Queue
+        </div>
+
+        <div class="nav-item">
+            <span class="icon">🛡️</span>
+            Privacy
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>
