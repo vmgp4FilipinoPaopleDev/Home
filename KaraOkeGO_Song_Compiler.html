@@ -1,1306 +1,343 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>KaraOkeGO - Digital Songbook & Database Catalog</title>
-  <style>
-    /* ==========================================================================
-       KaraOkeGO Liquid Glass Design System
-       ========================================================================== */
-    :root {
-      --bg-dark: #070913;
-      --card-bg: rgba(255, 255, 255, 0.05);
-      --card-border: rgba(255, 255, 255, 0.15);
-      --cyan-glow: #00f2fe;
-      --pink-glow: #ff0844;
-      --purple-glow: #7579ff;
-      --text-main: #ffffff;
-      --text-muted: rgba(255, 255, 255, 0.7);
-      --text-dim: rgba(255, 255, 255, 0.45);
-      --font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, sans-serif;
-    }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    body {
-      background-color: var(--bg-dark);
-      color: var(--text-main);
-      font-family: var(--font-family);
-      min-height: 100vh;
-      overflow-x: hidden;
-      position: relative;
-      padding-bottom: 60px;
-    }
-
-    /* Ambient Glowing Orbs Background */
-    .ambient-bg {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      z-index: -1;
-      overflow: hidden;
-      pointer-events: none;
-      background: radial-gradient(circle at 10% 20%, #101632 0%, #060913 90%);
-    }
-
-    .orb {
-      position: absolute;
-      border-radius: 50%;
-      filter: blur(90px);
-      opacity: 0.35;
-      animation: floatOrb 18s ease-in-out infinite alternate;
-    }
-
-    .orb-1 {
-      width: 380px;
-      height: 380px;
-      background: #00f2fe;
-      top: -100px;
-      left: -80px;
-    }
-
-    .orb-2 {
-      width: 450px;
-      height: 450px;
-      background: #7579ff;
-      bottom: -150px;
-      right: -100px;
-      animation-delay: -5s;
-    }
-
-    .orb-3 {
-      width: 300px;
-      height: 300px;
-      background: #ff0844;
-      top: 40%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      animation-delay: -10s;
-    }
-
-    @keyframes floatOrb {
-      0% { transform: translate(0, 0) scale(1); }
-      50% { transform: translate(30px, 40px) scale(1.1); }
-      100% { transform: translate(-20px, -30px) scale(0.95); }
-    }
-
-    /* Layout Container */
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 24px 16px;
-    }
-
-    /* Glass Card Primitive */
-    .glass-card {
-      background: var(--card-bg);
-      backdrop-filter: blur(24px);
-      -webkit-backdrop-filter: blur(24px);
-      border: 1px solid var(--card-border);
-      border-radius: 24px;
-      padding: 20px 24px;
-      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4);
-      margin-bottom: 24px;
-      transition: border-color 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    .glass-card:hover {
-      border-color: rgba(255, 255, 255, 0.25);
-    }
-
-    /* Header Bar */
-    .header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 16px;
-      margin-bottom: 24px;
-    }
-
-    .brand-logo {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      text-decoration: none;
-    }
-
-    .logo-icon {
-      width: 48px;
-      height: 48px;
-      background: linear-gradient(135deg, #00f2fe 0%, #7579ff 100%);
-      border-radius: 16px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 24px;
-      box-shadow: 0 0 20px rgba(0, 242, 254, 0.5);
-    }
-
-    .brand-title {
-      font-size: 28px;
-      font-weight: 900;
-      letter-spacing: -0.5px;
-    }
-
-    .brand-title .kara { color: #ffffff; }
-    .brand-title .go {
-      background: linear-gradient(135deg, #00f2fe, #ff0844);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-    .brand-title .compiler { color: #ffffff; font-weight: 300; opacity: 0.9; }
-
-    .header-actions {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
-
-    /* Liquid Gradient Buttons */
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 10px 18px;
-      border-radius: 14px;
-      font-size: 14px;
-      font-weight: 700;
-      color: #ffffff;
-      border: 1px solid rgba(255, 255, 255, 0.3);
-      background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.03));
-      cursor: pointer;
-      backdrop-filter: blur(10px);
-      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-      text-decoration: none;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
-    }
-
-    .btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(0, 242, 254, 0.3);
-      border-color: rgba(255, 255, 255, 0.5);
-    }
-
-    .btn:active {
-      transform: translateY(0);
-    }
-
-    .btn-primary {
-      background: linear-gradient(135deg, #00f2fe 0%, #4facfe 100%);
-      border-color: rgba(255, 255, 255, 0.4);
-      color: #070913;
-      text-shadow: 0 1px 0 rgba(255, 255, 255, 0.4);
-    }
-
-    .btn-pink {
-      background: linear-gradient(135deg, #ff0844 0%, #ffb199 100%);
-      border-color: rgba(255, 255, 255, 0.4);
-      color: #ffffff;
-    }
-
-    .btn-purple {
-      background: linear-gradient(135deg, #b224ef 0%, #7579ff 100%);
-      border-color: rgba(255, 255, 255, 0.4);
-      color: #ffffff;
-    }
-
-    /* Stats Dashboard Grid */
-    .stats-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 16px;
-      margin-bottom: 24px;
-    }
-
-    .stat-card {
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid var(--card-border);
-      border-radius: 18px;
-      padding: 16px;
-      display: flex;
-      align-items: center;
-      gap: 14px;
-    }
-
-    .stat-icon {
-      width: 44px;
-      height: 44px;
-      border-radius: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 20px;
-    }
-
-    .stat-icon.total { background: rgba(0, 242, 254, 0.15); color: #00f2fe; }
-    .stat-icon.midi { background: rgba(0, 114, 255, 0.15); color: #0072ff; }
-    .stat-icon.mp3 { background: rgba(178, 36, 239, 0.15); color: #b224ef; }
-    .stat-icon.artists { background: rgba(255, 8, 68, 0.15); color: #ff0844; }
-
-    .stat-val {
-      font-size: 22px;
-      font-weight: 800;
-    }
-
-    .stat-lbl {
-      font-size: 12px;
-      color: var(--text-muted);
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-
-    /* Search & Filter Section */
-    .filter-section {
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-    }
-
-    .search-bar-wrapper {
-      position: relative;
-      width: 100%;
-    }
-
-    .search-icon {
-      position: absolute;
-      left: 16px;
-      top: 50%;
-      transform: translateY(-50%);
-      font-size: 18px;
-      color: var(--cyan-glow);
-    }
-
-    .search-input {
-      width: 100%;
-      padding: 14px 44px 14px 48px;
-      background: rgba(0, 0, 0, 0.25);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      border-radius: 16px;
-      color: #ffffff;
-      font-size: 15px;
-      outline: none;
-      transition: all 0.25s ease;
-    }
-
-    .search-input:focus {
-      border-color: var(--cyan-glow);
-      box-shadow: 0 0 15px rgba(0, 242, 254, 0.3);
-      background: rgba(0, 0, 0, 0.4);
-    }
-
-    .clear-search {
-      position: absolute;
-      right: 14px;
-      top: 50%;
-      transform: translateY(-50%);
-      background: none;
-      border: none;
-      color: var(--text-muted);
-      font-size: 16px;
-      cursor: pointer;
-      display: none;
-    }
-
-    .clear-search.visible {
-      display: block;
-    }
-
-    .filter-controls {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 12px;
-    }
-
-    .pill-group {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-    }
-
-    .filter-pill {
-      padding: 6px 14px;
-      border-radius: 20px;
-      font-size: 13px;
-      font-weight: 600;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      color: var(--text-muted);
-      cursor: pointer;
-      transition: all 0.2s ease;
-    }
-
-    .filter-pill.active {
-      background: var(--cyan-glow);
-      color: #070913;
-      border-color: var(--cyan-glow);
-      font-weight: 700;
-      box-shadow: 0 0 12px rgba(0, 242, 254, 0.4);
-    }
-
-    .select-control {
-      background: rgba(0, 0, 0, 0.3);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      border-radius: 12px;
-      color: #ffffff;
-      padding: 8px 12px;
-      font-size: 13px;
-      outline: none;
-      cursor: pointer;
-    }
-
-    .select-control option {
-      background: #0d1329;
-      color: #ffffff;
-    }
-
-    /* Songbook View Controls */
-    .view-toggle {
-      display: flex;
-      background: rgba(0, 0, 0, 0.3);
-      border-radius: 12px;
-      padding: 3px;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-    }
-
-    .view-btn {
-      padding: 5px 12px;
-      border-radius: 9px;
-      border: none;
-      background: transparent;
-      color: var(--text-muted);
-      cursor: pointer;
-      font-size: 13px;
-    }
-
-    .view-btn.active {
-      background: rgba(255, 255, 255, 0.15);
-      color: #ffffff;
-      font-weight: bold;
-    }
-
-    /* Songbook Grid & Table */
-    .song-list-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 16px;
-      padding-bottom: 8px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    }
-
-    .song-list-title {
-      font-size: 14px;
-      font-weight: 800;
-      letter-spacing: 1px;
-      color: var(--cyan-glow);
-      text-transform: uppercase;
-    }
-
-    /* Table View */
-    .songs-table-wrapper {
-      overflow-x: auto;
-    }
-
-    .songs-table {
-      width: 100%;
-      border-collapse: collapse;
-      text-align: left;
-    }
-
-    .songs-table th {
-      padding: 12px 14px;
-      font-size: 12px;
-      text-transform: uppercase;
-      letter-spacing: 0.8px;
-      color: var(--text-muted);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.15);
-    }
-
-    .songs-table td {
-      padding: 14px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-      font-size: 14px;
-      vertical-align: middle;
-    }
-
-    .songs-table tr:hover td {
-      background: rgba(255, 255, 255, 0.03);
-    }
-
-    /* Badges */
-    .code-badge {
-      display: inline-block;
-      padding: 4px 10px;
-      border-radius: 8px;
-      font-family: monospace;
-      font-weight: 800;
-      font-size: 14px;
-      background: rgba(0, 242, 254, 0.12);
-      color: var(--cyan-glow);
-      border: 1px solid rgba(0, 242, 254, 0.3);
-      box-shadow: 0 0 8px rgba(0, 242, 254, 0.15);
-    }
-
-    .format-badge {
-      display: inline-block;
-      padding: 3px 8px;
-      border-radius: 6px;
-      font-size: 11px;
-      font-weight: 800;
-      text-transform: uppercase;
-    }
-
-    .format-badge.midi {
-      background: linear-gradient(135deg, rgba(0, 198, 255, 0.3), rgba(0, 114, 255, 0.3));
-      color: #70cfff;
-      border: 1px solid rgba(0, 198, 255, 0.4);
-    }
-
-    .format-badge.mp3 {
-      background: linear-gradient(135deg, rgba(178, 36, 239, 0.3), rgba(117, 121, 255, 0.3));
-      color: #df9bff;
-      border: 1px solid rgba(178, 36, 239, 0.4);
-    }
-
-    .song-title-text {
-      font-weight: 700;
-      color: #ffffff;
-      font-size: 15px;
-    }
-
-    .song-artist-text {
-      color: var(--text-muted);
-      font-size: 13px;
-    }
-
-    /* Cards Grid View */
-    .songs-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 16px;
-    }
-
-    .song-card-item {
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 16px;
-      padding: 16px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      gap: 12px;
-      transition: all 0.25s ease;
-    }
-
-    .song-card-item:hover {
-      transform: translateY(-3px);
-      border-color: rgba(0, 242, 254, 0.4);
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
-    }
-
-    .song-card-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .song-actions {
-      display: flex;
-      gap: 6px;
-    }
-
-    .icon-btn {
-      background: rgba(255, 255, 255, 0.08);
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      border-radius: 8px;
-      color: #ffffff;
-      width: 32px;
-      height: 32px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      font-size: 14px;
-      transition: all 0.2s ease;
-    }
-
-    .icon-btn:hover {
-      background: var(--cyan-glow);
-      color: #070913;
-    }
-
-    /* Modal Dialogs */
-    .modal-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      background: rgba(0, 0, 0, 0.75);
-      backdrop-filter: blur(8px);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 1000;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.3s ease;
-      padding: 16px;
-    }
-
-    .modal-overlay.active {
-      opacity: 1;
-      pointer-events: auto;
-    }
-
-    .modal-body {
-      background: #0d1226;
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      border-radius: 24px;
-      width: 100%;
-      max-width: 500px;
-      padding: 24px;
-      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.6);
-      transform: scale(0.9);
-      transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    }
-
-    .modal-overlay.active .modal-body {
-      transform: scale(1);
-    }
-
-    .modal-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 20px;
-    }
-
-    .modal-title {
-      font-size: 20px;
-      font-weight: 800;
-      color: #ffffff;
-    }
-
-    .form-group {
-      margin-bottom: 16px;
-    }
-
-    .form-label {
-      display: block;
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--text-muted);
-      margin-bottom: 6px;
-    }
-
-    .form-input, .form-select, .form-textarea {
-      width: 100%;
-      padding: 12px;
-      background: rgba(0, 0, 0, 0.3);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      border-radius: 12px;
-      color: #ffffff;
-      font-size: 14px;
-      outline: none;
-    }
-
-    .form-textarea {
-      min-height: 120px;
-      font-family: monospace;
-      resize: vertical;
-    }
-
-    .form-input:focus, .form-textarea:focus {
-      border-color: var(--cyan-glow);
-    }
-
-    /* Toast Notification */
-    .toast {
-      position: fixed;
-      bottom: 24px;
-      right: 24px;
-      background: linear-gradient(135deg, #00f2fe, #4facfe);
-      color: #070913;
-      padding: 12px 20px;
-      border-radius: 12px;
-      font-weight: 800;
-      font-size: 14px;
-      box-shadow: 0 10px 30px rgba(0, 242, 254, 0.4);
-      transform: translateY(100px);
-      opacity: 0;
-      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-      z-index: 2000;
-    }
-
-    .toast.show {
-      transform: translateY(0);
-      opacity: 1;
-    }
-
-    /* Empty State */
-    .empty-state {
-      text-align: center;
-      padding: 48px 16px;
-      color: var(--text-muted);
-    }
-
-    .empty-icon {
-      font-size: 48px;
-      margin-bottom: 12px;
-      opacity: 0.5;
-    }
-
-    /* ==========================================================================
-       Print Optimization Styles (@media print)
-       ========================================================================== */
-    @media print {
-      body {
-        background: #ffffff !important;
-        color: #000000 !important;
-        font-family: Arial, sans-serif !important;
-        padding: 0 !important;
-      }
-
-      .ambient-bg, .header-actions, .stats-grid, .filter-section, .song-actions, .view-toggle, .btn, .modal-overlay, .toast {
-        display: none !important;
-      }
-
-      .container {
-        max-width: 100% !important;
-        padding: 0 !important;
-      }
-
-      .glass-card {
-        background: none !important;
-        border: none !important;
-        box-shadow: none !important;
-        padding: 0 !important;
-        margin: 0 !important;
-      }
-
-      .header {
-        border-bottom: 2px solid #000;
-        padding-bottom: 10px;
-        margin-bottom: 15px;
-      }
-
-      .brand-title .kara, .brand-title .go, .brand-title .compiler {
-        color: #000 !important;
-        -webkit-text-fill-color: initial !important;
-      }
-
-      .songs-table-wrapper {
-        display: block !important;
-      }
-
-      .songs-grid {
-        display: none !important;
-      }
-
-      .songs-table {
-        width: 100% !important;
-        border: 1px solid #000 !important;
-      }
-
-      .songs-table th {
-        background: #f0f0f0 !important;
-        color: #000 !important;
-        border: 1px solid #000 !important;
-        font-weight: bold !important;
-      }
-
-      .songs-table td {
-        border: 1px solid #ccc !important;
-        color: #000 !important;
-        font-size: 12pt !important;
-        padding: 6px 8px !important;
-      }
-
-      .code-badge {
-        background: none !important;
-        color: #000 !important;
-        border: 1px solid #000 !important;
-        box-shadow: none !important;
-      }
-
-      .format-badge {
-        background: none !important;
-        color: #000 !important;
-        border: 1px solid #666 !important;
-      }
-
-      .song-title-text { color: #000 !important; }
-      .song-artist-text { color: #333 !important; }
-
-      @page {
-        margin: 1.5cm;
-      }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KaraOkeGO Song Compiler</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:Arial, Helvetica, sans-serif;
+    background:#0b1020;
+    color:#ffffff;
+    line-height:1.6;
+}
+
+.container{
+    max-width:1100px;
+    margin:auto;
+    padding:20px;
+}
+
+header{
+    text-align:center;
+    padding:70px 20px;
+}
+
+header h1{
+    font-size:3rem;
+    margin-bottom:15px;
+}
+
+.highlight{
+    color:#00e5ff;
+}
+
+header p{
+    max-width:800px;
+    margin:auto;
+    color:#d0d0d0;
+}
+
+.btn{
+    display:inline-block;
+    margin-top:25px;
+    padding:12px 24px;
+    background:#00e5ff;
+    color:#000;
+    text-decoration:none;
+    font-weight:bold;
+    border-radius:10px;
+}
+
+section{
+    background:#141b34;
+    border-radius:16px;
+    padding:30px;
+    margin-bottom:20px;
+}
+
+h2{
+    color:#00e5ff;
+    margin-bottom:15px;
+}
+
+.features{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:15px;
+}
+
+.feature{
+    background:#1c2547;
+    border-radius:12px;
+    padding:18px;
+}
+
+.feature h3{
+    margin-bottom:8px;
+    color:#ffffff;
+}
+
+.feature p{
+    color:#d0d0d0;
+    font-size:14px;
+}
+
+ul{
+    padding-left:20px;
+}
+
+li{
+    margin-bottom:8px;
+}
+
+footer{
+    text-align:center;
+    padding:30px 20px;
+    color:#aaaaaa;
+}
+
+footer a{
+    color:#00e5ff;
+    text-decoration:none;
+    font-weight:bold;
+}
+
+@media(max-width:768px){
+
+header h1{
+    font-size:2.2rem;
+}
+
+.features{
+    grid-template-columns:1fr;
+}
+
+}
+</style>
 </head>
 <body>
 
-  <!-- Background Mesh Glow -->
-  <div class="ambient-bg">
-    <div class="orb orb-1"></div>
-    <div class="orb orb-2"></div>
-    <div class="orb orb-3"></div>
-  </div>
+<div class="container">
 
-  <div class="container">
-    <!-- Main Top Header -->
-    <header class="header">
-      <a href="#" class="brand-logo">
-        <div class="logo-icon">🎤</div>
-        <div class="brand-title">
-          <span class="kara">KaraOke</span><span class="go">GO</span> <span class="compiler">Songbook</span>
-        </div>
-      </a>
-      <div class="header-actions">
-        <button class="btn btn-primary" onclick="openAddModal()">
-          <span>➕ Add Song</span>
-        </button>
-        <button class="btn btn-purple" onclick="openImportModal()">
-          <span>📥 Import / Drop Data</span>
-        </button>
-        <button class="btn" onclick="exportCSV()">
-          <span>📊 Export CSV</span>
-        </button>
-        <button class="btn btn-pink" onclick="window.print()">
-          <span>🖨️ Print Catalog</span>
-        </button>
-      </div>
-    </header>
+<header>
 
-    <!-- Statistics Cards Bar -->
-    <div class="stats-grid">
-      <div class="stat-card">
-        <div class="stat-icon total">🎵</div>
-        <div>
-          <div class="stat-val" id="stat-total">0</div>
-          <div class="stat-lbl">Total Songs</div>
-        </div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-icon midi">🎹</div>
-        <div>
-          <div class="stat-val" id="stat-midi">0</div>
-          <div class="stat-lbl">MIDI Tracks</div>
-        </div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-icon mp3">🎧</div>
-        <div>
-          <div class="stat-val" id="stat-mp3">0</div>
-          <div class="stat-lbl">MP3 Tracks</div>
-        </div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-icon artists">👨‍🎤</div>
-        <div>
-          <div class="stat-val" id="stat-artists">0</div>
-          <div class="stat-lbl">Artists</div>
-        </div>
-      </div>
-    </div>
+<h1>
+KaraOke<span class="highlight">GO</span> Song Compiler
+</h1>
 
-    <!-- Main Content Glass Card -->
-    <div class="glass-card">
-      <!-- Search and Filter Controls -->
-      <div class="filter-section">
-        <div class="search-bar-wrapper">
-          <span class="search-icon">🔍</span>
-          <input type="text" id="searchInput" class="search-input" aria-label="Search Karaoke songs" placeholder="Search 48K+ Karaoke songs by Title, Artist, or Code (e.g. 10001, Queen)..." oninput="handleSearchInput()">
-          <button class="clear-search" id="clearSearchBtn" onclick="clearSearch()">✕</button>
-        </div>
+<p>
+The ultimate Karaoke Database Compiler, Decompiler and Organizer
+for iPhone and iPad. Import KAR, MIDI and MP3 files, edit song
+information, organize karaoke collections, detect duplicate song
+codes and export ready-to-use karaoke databases.
+</p>
 
-        <div class="filter-controls">
-          <div class="pill-group">
-            <button class="filter-pill active" onclick="setFilter('all', this)">All Formats</button>
-            <button class="filter-pill" onclick="setFilter('midi', this)">MIDI / KAR</button>
-            <button class="filter-pill" onclick="setFilter('mp3', this)">MP3 Audio</button>
-          </div>
+<a href="KaraOkeGO_Song_Compiler_privacypolicy.html" class="btn">
+Privacy Policy
+</a>
 
-          <div style="display: flex; gap: 10px; align-items: center;">
-            <select class="select-control" id="sortSelect" aria-label="Sort Order" onchange="renderSongs()">
-              <option value="code-asc">Sort by Code (1-9)</option>
-              <option value="code-desc">Sort by Code (9-1)</option>
-              <option value="title-asc">Sort by Title (A-Z)</option>
-              <option value="artist-asc">Sort by Artist (A-Z)</option>
-            </select>
+</header>
 
-            <div class="view-toggle">
-              <button class="view-btn active" id="viewTableBtn" onclick="setViewMode('table')">📋 Table</button>
-              <button class="view-btn" id="viewGridBtn" onclick="setViewMode('grid')">🎴 Cards</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+<section>
 
-    <!-- Song List Container Card -->
-    <div class="glass-card">
-      <div class="song-list-header">
-        <div class="song-list-title" id="listTitleLabel">Song Catalog Database</div>
-        <div style="font-size: 13px; color: var(--text-muted);" id="songCountDisplay">Showing 0 songs</div>
-      </div>
+<h2>About KaraOkeGO Song Compiler</h2>
 
-      <!-- Table View -->
-      <div class="songs-table-wrapper" id="tableView">
-        <table class="songs-table">
-          <thead>
-            <tr>
-              <th style="width: 110px;">Code</th>
-              <th>Song Title</th>
-              <th>Artist</th>
-              <th style="width: 100px;">Format</th>
-              <th style="width: 100px; text-align: right;" class="song-actions-col">Actions</th>
-            </tr>
-          </thead>
-          <tbody id="tableBody">
-            <!-- Table rows rendered dynamically -->
-          </tbody>
-        </table>
-      </div>
+<p>
+KaraOkeGO Song Compiler is a professional karaoke database
+management solution built for karaoke hosts, operators,
+enthusiasts and collectors. Create new karaoke databases,
+decompile existing databases, import songs, edit metadata,
+organize your collection and export fully compiled karaoke
+database files directly to your device.
+</p>
 
-      <!-- Grid Cards View -->
-      <div class="songs-grid" id="gridView" style="display: none;">
-        <!-- Grid items rendered dynamically -->
-      </div>
+</section>
 
-      <!-- Empty State -->
-      <div class="empty-state" id="emptyState" style="display: none;">
-        <div class="empty-icon">🎼</div>
-        <h3>No Songs Found</h3>
-        <p style="margin-top: 6px;">Try searching for a different title, artist, or song code.</p>
-      </div>
-    </div>
-  </div>
+<section>
 
-  <!-- Add/Edit Song Modal -->
-  <div class="modal-overlay" id="songModal">
-    <div class="modal-body">
-      <div class="modal-header">
-        <h3 class="modal-title" id="modalTitleText">Add New Karaoke Song</h3>
-        <button class="icon-btn" onclick="closeSongModal()">✕</button>
-      </div>
-      <form id="songForm" onsubmit="saveSong(event)">
-        <input type="hidden" id="editSongId">
-        <div class="form-group">
-          <label class="form-label" for="songCodeInput">Song Code (Unique Number)</label>
-          <input type="number" id="songCodeInput" class="form-input" required placeholder="e.g. 10452">
-        </div>
-        <div class="form-group">
-          <label class="form-label" for="songTitleInput">Song Title</label>
-          <input type="text" id="songTitleInput" class="form-input" required placeholder="e.g. Bohemian Rhapsody">
-        </div>
-        <div class="form-group">
-          <label class="form-label" for="songArtistInput">Artist Name</label>
-          <input type="text" id="songArtistInput" class="form-input" required placeholder="e.g. Queen">
-        </div>
-        <div class="form-group">
-          <label class="form-label" for="songFormatInput">Format Type</label>
-          <select id="songFormatInput" class="form-select">
-            <option value="midi">MIDI / KAR</option>
-            <option value="mp3">MP3 Audio</option>
-          </select>
-        </div>
-        <div style="display: flex; gap: 10px; justify-content: flex-end; margin-top: 24px;">
-          <button type="button" class="btn" onclick="closeSongModal()">Cancel</button>
-          <button type="submit" class="btn btn-primary">Save Song</button>
-        </div>
-      </form>
-    </div>
-  </div>
+<h2>Professional Features</h2>
 
-  <!-- Import Modal -->
-  <div class="modal-overlay" id="importModal">
-    <div class="modal-body">
-      <div class="modal-header">
-        <h3 class="modal-title">Import Song Data</h3>
-        <button class="icon-btn" onclick="closeImportModal()">✕</button>
-      </div>
-      <div class="form-group">
-        <label class="form-label" for="importTextarea">Paste CSV or JSON Data</label>
-        <textarea id="importTextarea" class="form-textarea" placeholder='Format Example (CSV):&#10;10001, Bohemian Rhapsody, Queen, MP3&#10;10002, Hotel California, Eagles, MIDI&#10;&#10;Or paste JSON Array:&#10;[{"code": 10001, "title": "Bohemian Rhapsody", "artist": "Queen", "format": "mp3"}]'></textarea>
-      </div>
-      <div style="display: flex; gap: 10px; justify-content: flex-end; margin-top: 16px;">
-        <button class="btn" onclick="closeImportModal()">Cancel</button>
-        <button class="btn btn-purple" onclick="processImport()">Import Data</button>
-      </div>
-    </div>
-  </div>
+<div class="features">
 
-  <!-- Toast Container -->
-  <div class="toast" id="toastMessage">Copied to Clipboard!</div>
+<div class="feature">
+<h3>🔓 Database Decompiler</h3>
+<p>
+Open existing KaraGOblob and KaraGOidx databases and convert
+them into editable song records.
+</p>
+</div>
 
-  <!-- JavaScript Logic -->
-  <script>
-    // Initial Sample Database (Matches KaraOkeGO format & song compiler data)
-    let songDatabase = [
-      { id: '1', code: 10001, title: 'Bohemian Rhapsody', artist: 'Queen', format: 'mp3' },
-      { id: '2', code: 10002, title: 'Hotel California', artist: 'Eagles', format: 'midi' },
-      { id: '3', code: 10003, title: 'Sweet Child O\' Mine', artist: 'Guns N\' Roses', format: 'mp3' },
-      { id: '4', code: 10004, title: 'Don\'t Stop Believin\'', artist: 'Journey', format: 'midi' },
-      { id: '5', code: 10005, title: 'Billie Jean', artist: 'Michael Jackson', format: 'mp3' },
-      { id: '6', code: 10006, title: 'Dancing Queen', artist: 'ABBA', format: 'midi' },
-      { id: '7', code: 10007, title: 'Shape of You', artist: 'Ed Sheeran', format: 'mp3' },
-      { id: '8', code: 10008, title: 'Wonderwall', artist: 'Oasis', format: 'midi' },
-      { id: '9', code: 10009, title: 'Rolling in the Deep', artist: 'Adele', format: 'mp3' },
-      { id: '10', code: 10010, title: 'Take Me Home, Country Roads', artist: 'John Denver', format: 'midi' },
-      { id: '11', code: 10011, title: 'Careless Whisper', artist: 'George Michael', format: 'mp3' },
-      { id: '12', code: 10012, title: 'My Way', artist: 'Frank Sinatra', format: 'midi' },
-      { id: '13', code: 10013, title: 'Ang Huling El Bimbo', artist: 'Eraserheads', format: 'mp3' },
-      { id: '14', code: 10014, title: 'Bakit Ngayon Ka Lang', artist: 'Freestyle', format: 'midi' },
-      { id: '15', code: 10015, title: 'Narda', artist: 'Kamikazee', format: 'mp3' }
-    ];
+<div class="feature">
+<h3>🆕 Create New Databases</h3>
+<p>
+Build brand-new karaoke databases from scratch without relying
+on existing files.
+</p>
+</div>
 
-    let currentFilter = 'all';
-    let currentViewMode = 'table';
+<div class="feature">
+<h3>🎵 Batch Song Import</h3>
+<p>
+Import KAR, MID, MIDI and MP3 karaoke files in bulk with ease.
+</p>
+</div>
 
-    // DOM Elements
-    const searchInput = document.getElementById('searchInput');
-    const clearSearchBtn = document.getElementById('clearSearchBtn');
-    const sortSelect = document.getElementById('sortSelect');
-    const tableBody = document.getElementById('tableBody');
-    const gridView = document.getElementById('gridView');
-    const tableView = document.getElementById('tableView');
-    const emptyState = document.getElementById('emptyState');
-    const songCountDisplay = document.getElementById('songCountDisplay');
+<div class="feature">
+<h3>📂 Smart Metadata Detection</h3>
+<p>
+Automatically identify song titles, artists and song codes from
+supported files and filenames.
+</p>
+</div>
 
-    // Stats
-    const statTotal = document.getElementById('stat-total');
-    const statMidi = document.getElementById('stat-midi');
-    const statMp3 = document.getElementById('stat-mp3');
-    const statArtists = document.getElementById('stat-artists');
+<div class="feature">
+<h3>🗂 Database Organizer</h3>
+<p>
+Organize your karaoke database with advanced search, filtering
+and editing tools, making large song collections easy to manage
+and maintain.
+</p>
+</div>
 
-    // Initialize App
-    document.addEventListener('DOMContentLoaded', () => {
-      updateStats();
-      renderSongs();
-    });
+<div class="feature">
+<h3>🔍 Instant Song Search</h3>
+<p>
+Find songs instantly using title, artist name or karaoke code.
+</p>
+</div>
 
-    function updateStats() {
-      statTotal.textContent = songDatabase.length.toLocaleString();
-      const midiCount = songDatabase.filter(s => s.format.toLowerCase() === 'midi').length;
-      const mp3Count = songDatabase.filter(s => s.format.toLowerCase() === 'mp3').length;
-      const uniqueArtists = new Set(songDatabase.map(s => s.artist.trim().toLowerCase())).size;
+<div class="feature">
+<h3>✏️ Advanced Song Editor</h3>
+<p>
+Modify song titles, artist information and song codes using
+powerful editing tools.
+</p>
+</div>
 
-      statMidi.textContent = midiCount.toLocaleString();
-      statMp3.textContent = mp3Count.toLocaleString();
-      statArtists.textContent = uniqueArtists.toLocaleString();
-    }
+<div class="feature">
+<h3>⚠️ Duplicate Code Detection</h3>
+<p>
+Detect duplicate song codes before compilation to avoid conflicts.
+</p>
+</div>
 
-    function handleSearchInput() {
-      clearSearchBtn.classList.toggle('visible', searchInput.value.length > 0);
-      renderSongs();
-    }
+<div class="feature">
+<h3>🤖 Auto-Fix Duplicate Codes</h3>
+<p>
+Automatically generate unique replacement codes when duplicates
+are found.
+</p>
+</div>
 
-    function clearSearch() {
-      searchInput.value = '';
-      clearSearchBtn.classList.remove('visible');
-      renderSongs();
-    }
+<div class="feature">
+<h3>🎹 MIDI & KAR Support</h3>
+<p>
+Import and manage traditional karaoke MIDI and KAR file formats.
+</p>
+</div>
 
-    function setFilter(filterType, element) {
-      currentFilter = filterType;
-      document.querySelectorAll('.filter-pill').forEach(el => el.classList.remove('active'));
-      element.classList.add('active');
-      renderSongs();
-    }
+<div class="feature">
+<h3>🎧 MP3 Karaoke Support</h3>
+<p>
+Store and organize MP3 karaoke tracks together with MIDI and KAR files.
+</p>
+</div>
 
-    function setViewMode(mode) {
-      currentViewMode = mode;
-      document.getElementById('viewTableBtn').classList.toggle('active', mode === 'table');
-      document.getElementById('viewGridBtn').classList.toggle('active', mode === 'grid');
+<div class="feature">
+<h3>⚡ Recompile & Export</h3>
+<p>
+Compile your karaoke database and export KaraGOblob and KaraGOidx
+files ready for deployment.
+</p>
+</div>
 
-      if (mode === 'table') {
-        tableView.style.display = 'block';
-        gridView.style.display = 'none';
-      } else {
-        tableView.style.display = 'none';
-        gridView.style.display = 'grid';
-      }
-      renderSongs();
-    }
+<div class="feature">
+<h3>📱 Files App Integration</h3>
+<p>
+Save compiled karaoke database files directly to the Files app.
+</p>
+</div>
 
-    function getFilteredAndSortedSongs() {
-      const query = searchInput.value.trim().toLowerCase();
-      
-      let filtered = songDatabase.filter(song => {
-        const matchesQuery = query === '' ||
-          String(song.code).includes(query) ||
-          song.title.toLowerCase().includes(query) ||
-          song.artist.toLowerCase().includes(query);
+<div class="feature">
+<h3>🔒 100% Offline Processing</h3>
+<p>
+All karaoke files remain on your device and are never uploaded
+to external servers.
+</p>
+</div>
 
-        const matchesFormat = currentFilter === 'all' || song.format.toLowerCase() === currentFilter;
-        return matchesQuery && matchesFormat;
-      });
+<div class="feature">
+<h3>💎 Modern SwiftUI Design</h3>
+<p>
+Clean, elegant and intuitive interface designed specifically
+for iPhone and iPad.
+</p>
+</div>
 
-      const sortVal = sortSelect.value;
-      filtered.sort((a, b) => {
-        if (sortVal === 'code-asc') return a.code - b.code;
-        if (sortVal === 'code-desc') return b.code - a.code;
-        if (sortVal === 'title-asc') return a.title.localeCompare(b.title);
-        if (sortVal === 'artist-asc') return a.artist.localeCompare(b.artist);
-        return 0;
-      });
+</div>
 
-      return filtered;
-    }
+</section>
 
-    function renderSongs() {
-      const songs = getFilteredAndSortedSongs();
-      songCountDisplay.textContent = `Showing ${songs.length.toLocaleString()} of ${songDatabase.length.toLocaleString()} songs`;
+<section>
 
-      if (songs.length === 0) {
-        tableView.style.display = 'none';
-        gridView.style.display = 'none';
-        emptyState.style.display = 'block';
-        return;
-      } else {
-        emptyState.style.display = 'none';
-        if (currentViewMode === 'table') tableView.style.display = 'block';
-        if (currentViewMode === 'grid') gridView.style.display = 'grid';
-      }
+<h2>Why Choose KaraOkeGO?</h2>
 
-      // Render Table
-      tableBody.innerHTML = songs.map(song => `
-        <tr>
-          <td><span class="code-badge">${song.code}</span></td>
-          <td>
-            <div class="song-title-text">${escapeHtml(song.title)}</div>
-          </td>
-          <td>
-            <div class="song-artist-text">${escapeHtml(song.artist)}</div>
-          </td>
-          <td>
-            <span class="format-badge ${song.format.toLowerCase()}">${song.format.toUpperCase()}</span>
-          </td>
-          <td style="text-align: right;" class="song-actions-col">
-            <div class="song-actions" style="justify-content: flex-end;">
-              <button class="icon-btn" onclick="copyCode('${song.code}')" title="Copy Code">📋</button>
-              <button class="icon-btn" onclick="openEditModal('${song.id}')" title="Edit">✏️</button>
-              <button class="icon-btn" onclick="deleteSong('${song.id}')" title="Delete">🗑️</button>
-            </div>
-          </td>
-        </tr>
-      `).join('');
+<ul>
+<li>✔ Decompile existing karaoke databases</li>
+<li>✔ Create brand-new databases</li>
+<li>✔ Import KAR, MIDI and MP3 files</li>
+<li>✔ Smart song metadata detection</li>
+<li>✔ Advanced database organization tools</li>
+<li>✔ Fast song search and editing</li>
+<li>✔ Duplicate code detection and auto-fix</li>
+<li>✔ Recompile and export karaoke databases</li>
+<li>✔ Offline and secure file processing</li>
+<li>✔ Optimized for iPhone and iPad</li>
+</ul>
 
-      // Render Grid Cards
-      gridView.innerHTML = songs.map(song => `
-        <div class="song-card-item">
-          <div class="song-card-header">
-            <span class="code-badge">${song.code}</span>
-            <span class="format-badge ${song.format.toLowerCase()}">${song.format.toUpperCase()}</span>
-          </div>
-          <div>
-            <div class="song-title-text">${escapeHtml(song.title)}</div>
-            <div class="song-artist-text" style="margin-top: 4px;">${escapeHtml(song.artist)}</div>
-          </div>
-          <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(255,255,255,0.08); padding-top: 10px;">
-            <span style="font-size: 11px; color: var(--text-muted);">KaraOkeGO #DB</span>
-            <div class="song-actions">
-              <button class="icon-btn" onclick="copyCode('${song.code}')" title="Copy Code">📋</button>
-              <button class="icon-btn" onclick="openEditModal('${song.id}')" title="Edit">✏️</button>
-              <button class="icon-btn" onclick="deleteSong('${song.id}')" title="Delete">🗑️</button>
-            </div>
-          </div>
-        </div>
-      `).join('');
-    }
+</section>
 
-    function copyCode(code) {
-      navigator.clipboard.writeText(String(code));
-      showToast(`Copied Song Code ${code}!`);
-    }
+<section>
 
-    function showToast(msg) {
-      const toast = document.getElementById('toastMessage');
-      toast.textContent = msg;
-      toast.classList.add('show');
-      setTimeout(() => toast.classList.remove('show'), 2500);
-    }
+<h2>Privacy & Security</h2>
 
-    function openAddModal() {
-      document.getElementById('modalTitleText').textContent = 'Add New Karaoke Song';
-      document.getElementById('editSongId').value = '';
-      document.getElementById('songCodeInput').value = getNextAvailableCode();
-      document.getElementById('songTitleInput').value = '';
-      document.getElementById('songArtistInput').value = '';
-      document.getElementById('songFormatInput').value = 'mp3';
-      document.getElementById('songModal').classList.add('active');
-    }
+<p>
+KaraOkeGO Song Compiler processes karaoke databases and music files
+locally on your device. Your karaoke content is never uploaded to
+external servers. For complete details, please review our Privacy Policy.
+</p>
 
-    function openEditModal(id) {
-      const song = songDatabase.find(s => s.id === id);
-      if (!song) return;
+<br>
 
-      document.getElementById('modalTitleText').textContent = 'Edit Song Details';
-      document.getElementById('editSongId').value = song.id;
-      document.getElementById('songCodeInput').value = song.code;
-      document.getElementById('songTitleInput').value = song.title;
-      document.getElementById('songArtistInput').value = song.artist;
-      document.getElementById('songFormatInput').value = song.format.toLowerCase();
-      document.getElementById('songModal').classList.add('active');
-    }
+<a href="KaraOkeGO_Song_Compiler_privacypolicy.html" class="btn">
+View Privacy Policy
+</a>
 
-    function closeSongModal() {
-      document.getElementById('songModal').classList.remove('active');
-    }
+</section>
 
-    function getNextAvailableCode() {
-      if (songDatabase.length === 0) return 10001;
-      const codes = songDatabase.map(s => s.code);
-      return Math.max(...codes) + 1;
-    }
+<footer>
 
-    function saveSong(e) {
-      e.preventDefault();
-      const id = document.getElementById('editSongId').value;
-      const code = parseInt(document.getElementById('songCodeInput').value);
-      const title = document.getElementById('songTitleInput').value.trim();
-      const artist = document.getElementById('songArtistInput').value.trim();
-      const format = document.getElementById('songFormatInput').value;
+<p>
+© 2026 KaraOkeGO Song Compiler. All Rights Reserved.
+</p>
 
-      if (id) {
-        const idx = songDatabase.findIndex(s => s.id === id);
-        if (idx !== -1) {
-          songDatabase[idx] = { id, code, title, artist, format };
-          showToast(`Updated '${title}' successfully!`);
-        }
-      } else {
-        const newId = String(Date.now());
-        songDatabase.push({ id: newId, code, title, artist, format });
-        showToast(`Added '${title}' to catalog!`);
-      }
+<br>
 
-      updateStats();
-      renderSongs();
-      closeSongModal();
-    }
+<a href="KaraOkeGO_Song_Compiler_privacypolicy.html">
+Privacy Policy
+</a>
 
-    function deleteSong(id) {
-      const song = songDatabase.find(s => s.id === id);
-      if (!song) return;
+</footer>
 
-      if (confirm(`Are you sure you want to delete '${song.title}'?`)) {
-        songDatabase = songDatabase.filter(s => s.id !== id);
-        updateStats();
-        renderSongs();
-        showToast(`Deleted '${song.title}'`);
-      }
-    }
+</div>
 
-    function openImportModal() {
-      document.getElementById('importTextarea').value = '';
-      document.getElementById('importModal').classList.add('active');
-    }
-
-    function closeImportModal() {
-      document.getElementById('importModal').classList.remove('active');
-    }
-
-    function processImport() {
-      const text = document.getElementById('importTextarea').value.trim();
-      if (!text) return;
-
-      let addedCount = 0;
-
-      try {
-        if (text.startsWith('[') || text.startsWith('{')) {
-          const parsed = JSON.parse(text);
-          const items = Array.isArray(parsed) ? parsed : [parsed];
-          items.forEach(item => {
-            if (item.title) {
-              songDatabase.push({
-                id: String(Date.now() + Math.random()),
-                code: item.code || getNextAvailableCode(),
-                title: item.title,
-                artist: item.artist || 'Unknown Artist',
-                format: item.format || 'mp3'
-              });
-              addedCount++;
-            }
-          });
-        } else {
-          const lines = text.split('\n');
-          lines.forEach(line => {
-            const parts = line.split(',').map(p => p.trim());
-            if (parts.length >= 2) {
-              let code = parseInt(parts[0]);
-              let title = '';
-              let artist = '';
-              let format = 'mp3';
-
-              if (!isNaN(code)) {
-                title = parts[1] || 'Untitled';
-                artist = parts[2] || 'Unknown Artist';
-                format = parts[3] || 'mp3';
-              } else {
-                code = getNextAvailableCode();
-                title = parts[0];
-                artist = parts[1] || 'Unknown Artist';
-                format = parts[2] || 'mp3';
-              }
-
-              songDatabase.push({
-                id: String(Date.now() + Math.random()),
-                code: code,
-                title: title,
-                artist: artist,
-                format: format.toLowerCase().includes('mid') ? 'midi' : 'mp3'
-              });
-              addedCount++;
-            }
-          });
-        }
-
-        updateStats();
-        renderSongs();
-        closeImportModal();
-        showToast(`Successfully imported ${addedCount} songs!`);
-      } catch (err) {
-        alert('Failed to parse import data: ' + err.message);
-      }
-    }
-
-    function exportCSV() {
-      let csvContent = "data:text/csv;charset=utf-8,Code,Title,Artist,Format\n";
-      songDatabase.forEach(s => {
-        csvContent += `${s.code},"${s.title.replace(/"/g, '""')}","${s.artist.replace(/"/g, '""')}",${s.format.toUpperCase()}\n`;
-      });
-
-      const encodedUri = encodeURI(csvContent);
-      const link = document.createElement("a");
-      link.setAttribute("href", encodedUri);
-      link.setAttribute("download", "KaraOkeGO_Songbook.csv");
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-      showToast('Exported KaraOkeGO Songbook CSV!');
-    }
-
-    function escapeHtml(str) {
-      return String(str)
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
-    }
-  </script>
 </body>
 </html>
