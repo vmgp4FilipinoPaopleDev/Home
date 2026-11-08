@@ -1,1 +1,479 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Privacy Policy & Storage Terms - KaraOkeGO</title>
+  <style>
+    /* ==========================================================================
+       KaraOkeGO Liquid Glass Privacy Policy System
+       ========================================================================== */
+    :root {
+      --bg-dark: #070913;
+      --card-bg: rgba(255, 255, 255, 0.05);
+      --card-border: rgba(255, 255, 255, 0.15);
+      --cyan-glow: #00f2fe;
+      --pink-glow: #ff0844;
+      --purple-glow: #7579ff;
+      --yellow-glow: #ffd700;
+      --green-glow: #00e676;
+      --text-main: #ffffff;
+      --text-muted: rgba(255, 255, 255, 0.75);
+      --font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: var(--font-family);
+      min-height: 100vh;
+      overflow-x: hidden;
+      line-height: 1.6;
+      padding-bottom: 60px;
+    }
+
+    /* Ambient Glowing Orbs Background */
+    .ambient-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: -1;
+      overflow: hidden;
+      pointer-events: none;
+      background: radial-gradient(circle at 10% 20%, #101632 0%, #060913 90%);
+    }
+
+    .orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(90px);
+      opacity: 0.35;
+      animation: floatOrb 18s ease-in-out infinite alternate;
+    }
+
+    .orb-1 {
+      width: 380px;
+      height: 380px;
+      background: #00f2fe;
+      top: -100px;
+      left: -80px;
+    }
+
+    .orb-2 {
+      width: 450px;
+      height: 450px;
+      background: #7579ff;
+      bottom: -150px;
+      right: -100px;
+      animation-delay: -5s;
+    }
+
+    .orb-3 {
+      width: 300px;
+      height: 300px;
+      background: #ff0844;
+      top: 40%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      animation-delay: -10s;
+    }
+
+    @keyframes floatOrb {
+      0% { transform: translate(0, 0) scale(1); }
+      50% { transform: translate(30px, 40px) scale(1.1); }
+      100% { transform: translate(-20px, -30px) scale(0.95); }
+    }
+
+    /* Layout Container */
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 32px 20px;
+    }
+
+    /* Glass Card Primitive */
+    .glass-card {
+      background: var(--card-bg);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border: 1px solid var(--card-border);
+      border-radius: 24px;
+      padding: 28px;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4);
+      margin-bottom: 24px;
+    }
+
+    /* Top Navigation Header */
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+
+    .brand-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+    }
+
+    .logo-icon {
+      width: 44px;
+      height: 44px;
+      background: linear-gradient(135deg, #00f2fe 0%, #7579ff 100%);
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      box-shadow: 0 0 20px rgba(0, 242, 254, 0.5);
+    }
+
+    .brand-title {
+      font-size: 24px;
+      font-weight: 900;
+      letter-spacing: -0.5px;
+    }
+
+    .brand-title .kara { color: #ffffff; }
+    .brand-title .go {
+      background: linear-gradient(135deg, #00f2fe, #ff0844);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .brand-title .subtitle { color: rgba(255, 255, 255, 0.7); font-weight: 400; font-size: 16px; }
+
+    /* Action Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 18px;
+      border-radius: 14px;
+      font-size: 14px;
+      font-weight: 700;
+      color: #ffffff;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.03));
+      cursor: pointer;
+      backdrop-filter: blur(10px);
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      text-decoration: none;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0, 242, 254, 0.3);
+      border-color: rgba(255, 255, 255, 0.5);
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #00f2fe 0%, #4facfe 100%);
+      border-color: rgba(255, 255, 255, 0.4);
+      color: #070913;
+    }
+
+    /* Policy Page Hero */
+    .policy-hero {
+      text-align: center;
+      margin-bottom: 32px;
+    }
+
+    .policy-hero h1 {
+      font-size: 32px;
+      font-weight: 900;
+      margin-bottom: 8px;
+      background: linear-gradient(135deg, #ffffff 30%, var(--cyan-glow));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .policy-hero p {
+      color: var(--text-muted);
+      font-size: 15px;
+    }
+
+    .effective-date {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 4px 12px;
+      border-radius: 20px;
+      background: rgba(0, 242, 254, 0.1);
+      border: 1px solid rgba(0, 242, 254, 0.3);
+      color: var(--cyan-glow);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    /* Policy Sections */
+    .policy-section {
+      margin-bottom: 28px;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .section-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+    }
+
+    .icon-local { background: rgba(255, 215, 0, 0.2); color: var(--yellow-glow); }
+    .icon-storage { background: rgba(0, 242, 254, 0.2); color: var(--cyan-glow); }
+    .icon-ads { background: rgba(117, 121, 255, 0.2); color: var(--purple-glow); }
+    .icon-contact { background: rgba(255, 8, 68, 0.2); color: var(--pink-glow); }
+
+    .section-title {
+      font-size: 18px;
+      font-weight: 800;
+      color: #ffffff;
+    }
+
+    .policy-text {
+      font-size: 14.5px;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+    }
+
+    /* Highlight Banner Box */
+    .highlight-box {
+      background: rgba(0, 242, 254, 0.08);
+      border: 1px solid rgba(0, 242, 254, 0.3);
+      border-radius: 16px;
+      padding: 16px;
+      margin: 14px 0;
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+
+    .highlight-icon {
+      font-size: 20px;
+      color: var(--green-glow);
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .highlight-content {
+      font-size: 13.5px;
+      font-weight: 600;
+      color: #ffffff;
+    }
+
+    .divider {
+      height: 1px;
+      background: rgba(255, 255, 255, 0.12);
+      margin: 24px 0;
+    }
+
+    /* Contact Box */
+    .contact-card {
+      background: linear-gradient(135deg, rgba(255, 8, 68, 0.08), rgba(117, 121, 255, 0.08));
+      border: 1px solid rgba(255, 8, 68, 0.3);
+      border-radius: 16px;
+      padding: 18px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .contact-email {
+      font-family: monospace;
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--cyan-glow);
+      background: rgba(0, 0, 0, 0.3);
+      padding: 6px 12px;
+      border-radius: 8px;
+      border: 1px solid rgba(0, 242, 254, 0.3);
+    }
+
+    /* Footer */
+    .footer {
+      text-align: center;
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.5);
+      margin-top: 32px;
+    }
+
+    /* Print Optimization */
+    @media print {
+      body {
+        background: #ffffff !important;
+        color: #000000 !important;
+        font-family: Arial, sans-serif !important;
+      }
+      .ambient-bg, .btn, .header {
+        display: none !important;
+      }
+      .glass-card {
+        background: none !important;
+        border: none !important;
+        box-shadow: none !important;
+        padding: 0 !important;
+      }
+      .section-title, .policy-hero h1 {
+        color: #000000 !important;
+        -webkit-text-fill-color: initial !important;
+      }
+      .policy-text, .highlight-content {
+        color: #333333 !important;
+      }
+      .highlight-box {
+        background: #f4f4f4 !important;
+        border: 1px solid #ccc !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Ambient Mesh Background -->
+  <div class="ambient-bg">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+  </div>
+
+  <div class="container">
+    <!-- Top Header -->
+    <header class="header">
+      <a href="karaokego_songbook.html" class="brand-logo">
+        <div class="logo-icon">🔒</div>
+        <div class="brand-title">
+          <span class="kara">KaraOke</span><span class="go">GO</span> <span class="subtitle">| Privacy & Storage</span>
+        </div>
+      </a>
+      <div style="display: flex; gap: 10px;">
+        <button class="btn" onclick="window.print()">🖨️ Print Policy</button>
+        <a href="karaokego_songbook.html" class="btn btn-primary">🎵 Songbook App</a>
+      </div>
+    </header>
+
+    <!-- Policy Hero -->
+    <div class="policy-hero">
+      <h1>Privacy Policy & File Access Terms</h1>
+      <p>Transparency regarding on-device data processing, file storage, and advertising.</p>
+      <div class="effective-date">Last Updated: February 2025 • Version 1.0</div>
+    </div>
+
+    <!-- Main Glass Card Container -->
+    <div class="glass-card">
+      
+      <!-- Section 1: Local File Processing -->
+      <div class="policy-section">
+        <div class="section-header">
+          <div class="section-icon icon-local">📄</div>
+          <h2 class="section-title">1. Local File Processing & Offline Security</h2>
+        </div>
+        <p class="policy-text">
+          <strong>KaraOkeGO Song Compiler</strong> operates <strong>100% locally on your device</strong>. 
+          Your karaoke database files (<code>KaraGOblob</code>, <code>KaraGOidx</code>) and imported audio/MIDI files (<code>.mid</code>, <code>.kar</code>, <code>.mp3</code>) are processed, compiled, and edited entirely offline within your device's memory.
+        </p>
+        <p class="policy-text">
+          We do not collect, transmit, or upload any of your song databases, file metadata, or personal media to external servers. Your files remain under your complete control at all times.
+        </p>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- Section 2: File Access & Storage -->
+      <div class="policy-section">
+        <div class="section-header">
+          <div class="section-icon icon-storage">📁</div>
+          <h2 class="section-title">2. File Access & Storage Acknowledgement</h2>
+        </div>
+        <p class="policy-text">
+          To fulfill its primary function as a karaoke database compiler, KaraOkeGO requires local file system access permissions on your device.
+        </p>
+
+        <div class="highlight-box">
+          <div class="highlight-icon">✅</div>
+          <div class="highlight-content">
+            By using KaraOkeGO Song Compiler, you acknowledge and agree that the application requires local storage permissions to output compiled files (<code>KaraGOblob</code> & <code>KaraGOidx</code>) directly to your device's file system (e.g., under <em>Files -> On My iPhone -> KaraOkeGO Compiler</em> or Android local app folder).
+          </div>
+        </div>
+
+        <p class="policy-text">
+          File access permissions are strictly restricted to reading user-selected song input files and writing compiled output databases. No other user directories or personal documents are accessed.
+        </p>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- Section 3: Advertising & App Tracking Transparency -->
+      <div class="policy-section">
+        <div class="section-header">
+          <div class="section-icon icon-ads">📺</div>
+          <h2 class="section-title">3. Advertising & App Tracking Transparency</h2>
+        </div>
+        <p class="policy-text">
+          To keep KaraOkeGO Song Compiler free for all users and support continuous feature development, this application integrates <strong>Google Mobile Ads (AdMob)</strong>.
+        </p>
+        <p class="policy-text">
+          Google AdMob may utilize standard mobile advertising identifiers (such as IDFA on iOS or Advertising ID on Android) where permitted by user consent settings to deliver relevant banner and interstitial ads.
+        </p>
+        <p class="policy-text">
+          You can manage or modify your ad tracking preferences at any time through your device system settings:
+          <br>
+          • <strong>iOS:</strong> <em>Settings -> Privacy & Security -> Tracking</em>
+          <br>
+          • <strong>Android:</strong> <em>Settings -> Security & Privacy -> Privacy -> Ads</em>
+        </p>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- Section 4: Developer Contact & Support -->
+      <div class="policy-section">
+        <div class="section-header">
+          <div class="section-icon icon-contact">✉️</div>
+          <h2 class="section-title">4. Developer Support & Contact</h2>
+        </div>
+        <p class="policy-text">
+          If you have any questions, feedback, or concerns regarding our privacy practices or storage handling, please feel free to contact us directly:
+        </p>
+
+        <div class="contact-card">
+          <div>
+            <div style="font-size: 13px; color: var(--text-muted); margin-bottom: 4px;">Official Developer Support Email</div>
+            <div class="contact-email">karaokego.support@gmail.com</div>
+          </div>
+          <a href="mailto:karaokego.support@gmail.com" class="btn btn-primary">📩 Send Email</a>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <p>© 2025 KaraOkeGO Song Compiler. All rights reserved.</p>
+    </footer>
+
+  </div>
+
+</body>
+</html>
